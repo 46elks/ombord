@@ -1,0 +1,40 @@
+
+.btn,
+.btn-inverse{
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  outline: none;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+.btn{
+  background-color: var(--link-color);
+  border-color: var(--link-color);
+  color: #fff;
+}
+
+.btn-inverse{
+  border-color: var(--medium-grey);
+  background-color: #fff;
+  color: var(--medium-grey);
+}
+
+.btn:hover{
+  background-color: var(--link-hover-color);
+}
+
+.btn--sm{
+  padding: 0.2rem 0.5rem;
+  font-size: 1rem;
+}
+
+.btn--warning:not(a){
+  background-color: var(--medium-red);
+  border-color: var(--medium-red);
+}
+
+a.btn--warning{
+  color: var(--medium-red);
+}

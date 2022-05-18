@@ -1,0 +1,13 @@
+.global-nav{
+  text-align: right;
+}
+
+
+/* Breadcrumbs */
+.breadcrumbs{}
+.breadcrumbs__item:not(:last-of-type){
+  margin-right: 0;
+}
+.breadcrumbs__item:not(:last-of-type)::after{
+  content: " / ";
+}

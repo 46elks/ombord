@@ -1,0 +1,12 @@
+DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+# If the request is not for a valid directory
+RewriteCond %{REQUEST_FILENAME} !-d
+# If the request is not for a valid file
+RewriteCond %{REQUEST_FILENAME} !-f
+# route to index.php in current directory
+RewriteRule ^(.+)$ index.php [L,QSA] 
+
+</IfModule>

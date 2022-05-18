@@ -1,0 +1,30 @@
+.task-list{
+  padding: 0;
+  list-style: none;
+}
+.task-list li{
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.task__title{}
+.task__title:hover{}
+
+.task__checkbox{
+  margin-left: -20px;
+  margin-right: 5px;
+}
+
+.task__is_completed .task__title{
+  color: var(--medium-grey);
+  text-decoration: line-through;
+}
+.task__is_completed .task__handle{
+  color: var(--medium-grey);
+}
+
+.task__handle{
+  cursor: grab;
+  color: var(--link-color);
+  margin-right: 5px;
+}

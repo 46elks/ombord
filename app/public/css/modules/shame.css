@@ -1,0 +1,34 @@
+#single-task{}
+#single-task .checkbox__desc{
+  margin-top: -12px;
+}
+
+section#login{
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+section#login h1{
+  margin-bottom: 1rem;
+}
+section#login form *{
+  width: 100%;
+}
+
+#form-add-user{
+  padding: 2rem;
+  border-radius: 5px;
+  border: 1px solid var(--medium-grey);
+}
+
+#edit-task-form{}
+#edit-task-form textarea,
+#edit-task-form input{
+  width: 100%;
+}
+
+#edit-list-form{}
+#edit-list-form textarea,
+#edit-list-form input{
+  width: 100%;
+}
