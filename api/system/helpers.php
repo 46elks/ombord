@@ -24,7 +24,7 @@
         AND api_secret = :api_secret
         AND is_deleted = 0 
       LIMIT 1;
-    SQL;
+SQL;
 
     $result = db__select($sql, $params);
 
