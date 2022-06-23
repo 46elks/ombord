@@ -23,6 +23,8 @@
     <div class="outer-wrapper">
       <div class="inner-wrapper">
         <div class="row">
+
+        <?php if(is_logged_in()): ?>
           <?php if(isset($data['breadcrumbs'])): ?>
             <nav class="breadcrumbs">
               <ul class="inline-list">
@@ -42,7 +44,8 @@
               </ul>
             </nav>
           <?php endif; ?>
-
+        <?php endif; ?>
+        
           <nav class="global-nav">
             <ul class="inline-list">
               <?php if(is_logged_in()): ?>
