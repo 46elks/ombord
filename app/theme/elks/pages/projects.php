@@ -1,7 +1,7 @@
 <?php 
 login_required();
 
-$project_id = (isset($_GET['project_id'])) ? $_GET['project_id'] : null;
+$project_id = get_project_id();
 $projects = ui__get_projects($project_id);
 
 if(!empty($projects) && !empty($project_id)):
