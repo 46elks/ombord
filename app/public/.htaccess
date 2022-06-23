@@ -9,15 +9,6 @@ RewriteRule ^index\.php$ - [L,NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*[^/])/$ /$1 [L,R] 
 
-RewriteRule ^tasks/(\d+)/?$ ?task_id=$1 [QSA,NC,DPI]
-RewriteRule ^lists/(\d+)/?$ ?list_id=$1 [QSA,NC,DPI]
-RewriteRule ^projects/(\d+)/?$ ?project_id=$1 [QSA,NC,DPI]
-
-RewriteRule ^projects/(\d+)/lists/(\d+)/tasks/(\d+)$ ?project_id=$1&list_id=$2&task_id=$3 [QSA,NC,DPI]
-RewriteRule ^projects/(\d+)/lists/(\d+)$ ?project_id=$1&list_id=$2 [QSA,NC,DPI]
-RewriteRule ^projects/(\d+)/tasks/(\d+)$ ?project_id=$1&task_id=$2 [QSA,NC,DPI]
-RewriteRule ^lists/(\d+)/tasks/(\d+)?$ ?list_id=$1&task_id=$2 [QSA,NC,DPI]
-
 # If the request is not for a valid directory
 RewriteCond %{REQUEST_FILENAME} !-d
 # If the request is not for a valid file

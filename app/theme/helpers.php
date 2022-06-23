@@ -66,7 +66,6 @@
     $_SESSION["user"]["is_admin"] = $user_obj['is_admin'];
   }
 
-
   /* -------------------------------
    ------------------------------- */
 
@@ -125,7 +124,9 @@
    */ 
 
   function get_project_id(){
-    return (!empty($_GET["project_id"])) ? $_GET["project_id"] : null;
+    preg_match('/projects\/([0-9]*)/', $_SERVER["REQUEST_URI"], $matches);
+    if(!isset($matches[1])) return null;
+    return $matches[1];
   }
 
 
@@ -140,7 +141,9 @@
    */ 
 
   function get_list_id(){
-    return (!empty($_GET["list_id"])) ? $_GET["list_id"] : null;
+    preg_match('/lists\/([0-9]*)/', $_SERVER["REQUEST_URI"], $matches);
+    if(!isset($matches[1])) return null;
+    return $matches[1];
   }
 
 
@@ -155,7 +158,26 @@
    */ 
 
   function get_task_id(){
-    return (!empty($_GET["task_id"])) ? $_GET["task_id"] : null;
+    preg_match('/tasks\/([0-9]*)/', $_SERVER["REQUEST_URI"], $matches);
+    if(!isset($matches[1])) return null;
+    return $matches[1];
+  }
+
+
+ /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Get team member id from url
+   * 
+   * @return string
+   * 
+   */ 
+
+  function get_team_member_id(){
+    preg_match('/team\/([0-9]*)/', $_SERVER["REQUEST_URI"], $matches);
+    if(!isset($matches[1])) return null;
+    return $matches[1];
   }
 
 
