@@ -38,7 +38,7 @@
       UPDATE projects
       SET $set
       WHERE id = :project_id AND is_deleted = 0;
-    SQL;  
+SQL;
 
     return db__update($sql, $params);
   }

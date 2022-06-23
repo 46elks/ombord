@@ -41,7 +41,7 @@
         WHERE t.is_deleted = 0 
           AND ul.is_deleted = 0
           AND lt.is_deleted = 0;
-      SQL;
+SQL;
 
       $params = ['user_id' => (int)$user_id];
       $results = db__select($sql, $params);

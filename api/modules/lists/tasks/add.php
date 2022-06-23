@@ -29,7 +29,7 @@
       INSERT INTO list_tasks (list_id, task_id)
       VALUES (:list_id, :task_id)
         ON DUPLICATE KEY UPDATE is_deleted = 0;
-    SQL;  
+SQL;
 
     return db__update($sql, $params);
   }

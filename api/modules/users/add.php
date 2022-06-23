@@ -39,7 +39,7 @@
       VALUES (:email, :password_hash, :api_user, :api_secret)
         ON DUPLICATE KEY UPDATE email = :email
         ;
-    SQL;  
+SQL;
 
     return db__insert($sql, $params);
   }

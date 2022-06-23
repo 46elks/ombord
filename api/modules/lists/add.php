@@ -28,7 +28,7 @@
     $sql =<<< SQL
       INSERT INTO lists (title, description)
       VALUES (:title, :description);
-    SQL;  
+SQL;
 
     return db__insert($sql, $params);
   }

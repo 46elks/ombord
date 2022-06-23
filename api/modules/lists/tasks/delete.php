@@ -29,7 +29,7 @@
       UPDATE list_tasks
       SET is_deleted = :is_deleted
       WHERE list_tasks.list_id = :list_id AND list_tasks.task_id = :task_id 
-    SQL;  
+SQL;
 
     return db__update($sql, $params);
   }

@@ -27,7 +27,7 @@
         WHERE ul.user_id = :user_id
           AND l.is_deleted = 0 
           AND ul.is_deleted = 0
-      SQL;
+SQL;
 
       $params = ['user_id' => (int)$user_id];
       $results = db__select($sql, $params);

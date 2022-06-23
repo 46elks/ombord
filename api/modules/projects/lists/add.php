@@ -29,7 +29,7 @@
       INSERT INTO project_lists (project_id, list_id)
       VALUES (:project_id, :list_id)
         ON DUPLICATE KEY UPDATE is_deleted = 0;
-    SQL;  
+SQL;
 
     return db__update($sql, $params);
   }

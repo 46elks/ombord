@@ -33,7 +33,7 @@
         WHERE up.user_id = :user_id
           AND p.is_deleted = 0 
           AND up.is_deleted = 0
-      SQL;
+SQL;
 
       $params = ['user_id' => (int)$user_id];
 

@@ -22,7 +22,7 @@
         FROM tasks t
         WHERE t.id = :task_id
           AND t.is_deleted = 0;
-      SQL; 
+SQL;
 
     $tasks = db__select($sql, $params);
     
@@ -58,7 +58,7 @@
         SELECT t.id, t.title, t.description, t.is_completed
         FROM tasks t
         WHERE parent_id = :task_id AND t.is_deleted = 0;
-      SQL;  
+SQL;
 
     return db__select($sql, $params);
   }

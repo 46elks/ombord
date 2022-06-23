@@ -36,7 +36,7 @@
       UPDATE lists as l
       SET $set
       WHERE l.id = :list_id AND l.is_deleted = 0;
-    SQL;  
+SQL;
 
     return db__update($sql, $params);
   }

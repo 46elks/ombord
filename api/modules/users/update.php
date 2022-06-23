@@ -61,6 +61,6 @@
       UPDATE users as u
       SET $set
       WHERE u.id = :user_id AND u.is_deleted = 0;
-    SQL;  
+SQL;
     return db__update($sql, $params);
   }

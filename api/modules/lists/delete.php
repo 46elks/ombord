@@ -20,7 +20,7 @@
       UPDATE lists
       SET is_deleted = :is_deleted
       WHERE lists.id = :list_id
-    SQL;  
+SQL;
 
     return db__update($sql, $params);
   }

@@ -28,7 +28,7 @@
         JOIN project_lists AS pl 
           ON pl.list_id = l.id 
         WHERE pl.project_id = :project_id AND l.is_deleted = 0
-      SQL;
+SQL;
 
       $params = ['project_id' => (int)$project_id];
 

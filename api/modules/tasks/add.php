@@ -25,7 +25,7 @@
     $sql =<<< SQL
       INSERT INTO tasks (title, description, parent_id)
       VALUES (:title, :description, :parent_id);
-    SQL;  
+SQL;
 
     return db__insert($sql, $params);
   }

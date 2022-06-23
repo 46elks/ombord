@@ -17,7 +17,7 @@
     FROM users u
     WHERE u.email = :email AND u.is_deleted = 0 
     LIMIT 1;
-  SQL;
+SQL;
 
   $results = db__select($sql, $params);
   if(!isset($results[0])) api__response(401,"Wrong password or username");

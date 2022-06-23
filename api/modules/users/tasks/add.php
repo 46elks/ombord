@@ -31,7 +31,7 @@
       INSERT INTO user_tasks (task_id, user_id) 
       VALUES (:task_id, :user_id)
       ON DUPLICATE KEY UPDATE is_deleted = 0;
-    SQL;
+SQL;
     $params = array('task_id' => $task_id, 'user_id' => $user_id);
     
     return db__insert($sql, $params);

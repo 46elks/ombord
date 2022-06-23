@@ -40,7 +40,7 @@
         WHERE u.is_deleted = 0 $sql_where
         $sql_limit
         ;
-      SQL;
+SQL;
 
       return db__select($sql, $params);
 

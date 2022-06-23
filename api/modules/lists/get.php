@@ -26,7 +26,7 @@
         FROM lists l
         WHERE l.id = :list_id
           AND l.is_deleted = 0;
-      SQL;  
+SQL;
 
       $params = ['list_id' => (int)$list_id];
 

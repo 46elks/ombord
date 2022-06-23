@@ -29,6 +29,6 @@
       WHERE t.parent_id = 0
         AND t.is_deleted = 0 
         AND lt.is_deleted = 0;
-    SQL;
+SQL;
     return db__select($sql, $params);
   }

@@ -25,7 +25,7 @@
     $sql =<<< SQL
       INSERT INTO projects (name, title, description, is_template)
       VALUES (:name, :title, :description, :is_template);
-    SQL;  
+SQL;
 
     return db__insert($sql, $params);
   }

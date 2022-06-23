@@ -20,7 +20,7 @@
       UPDATE tasks
       SET is_deleted = :is_deleted
       WHERE tasks.id = :task_id
-    SQL;  
+SQL;
 
     return db__update($sql, $params);
   }
