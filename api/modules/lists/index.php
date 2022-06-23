@@ -13,7 +13,7 @@ switch(strtoupper($_SERVER['REQUEST_METHOD'])):
     extract(api__request_data());
 
     // Include module functions
-    load_model("tasks","add");
+    load_model("lists","add");
     
     if (!isset($title)) $title = null;
     if (!isset($description)) $description = null;
@@ -58,7 +58,7 @@ switch(strtoupper($_SERVER['REQUEST_METHOD'])):
   case "PATCH":
      
     // Include module functions
-    load_model("tasks","update");
+    load_model("lists","update");
 
     $data = api__request_data();
 
