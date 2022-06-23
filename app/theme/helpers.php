@@ -345,20 +345,14 @@
    */
 
   function ui__get_tasks($task_id = null, $list_id = null) {
-
     $data = ui__api_get("/tasks", ["task_id" => $task_id, 'list_id' => $list_id]);
-    // if(!empty($list_id)):
-    //   $data = ui__api_get("/lists/tasks", ['list_id' => $list_id]);
-    // else:
-    //   $data = ui__api_get("/tasks", ["task_id" => $task_id]);
-    // endif;
-
     if(empty($data)) return [];
     return $data;
   }
 
   function ui__get_task($task_id = null, $list_id = null) {
     $data = ui__get_tasks($task_id, $list_id, $args = []);
+    if(empty($data)) return [];
     if(count($data) > 1) return $data;
     return $data[0];
   }
@@ -440,9 +434,7 @@
     $filename = THEME.DS.strtolower($type).DS.strtolower($view);
     if(!file_exists($filename)):
       debug__log("view not found: ". $filename);
-      // echo "View not found";
     else:
-      // debug__log("Loading view: ". $filename);
       include($filename);
     endif;
     unset($data);
