@@ -1,8 +1,9 @@
 <?php
 login_required();
-if(isset($_GET['id'])):
-  $id = (isset($_GET['id'])) ? $_GET['id'] : get_user_id();
-  $user = ui__get_user($id);
+
+$team_member_id = get_team_member_id();
+if($team_member_id != null):
+  $user = ui__get_user($team_member_id);
   $breadcrumbs = [
      ['title' => "Ombord",'url'=>'/dashboard'],
      ['title' => "Team", 'url' => '/team'],
