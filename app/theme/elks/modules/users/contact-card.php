@@ -1,7 +1,7 @@
 <?php if(empty($module["img"])) $module["img"] = "/img/user.jpg"; ?>
 
 <div class="contact-card">
-  <a href="/team?id=<?=$module['id'];?>">
+  <a href="/team/<?=$module['id'];?>">
     <img class="contact-card__img js-user-image" src="<?=$module["img"];?>">
   </a>
   <h4 class="contact-card__name js-user-name"><?=$module["firstname"]." ".$module["lastname"];?></h4>
