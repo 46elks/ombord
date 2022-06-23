@@ -1,5 +1,13 @@
 <?php 
 
+// Check for a valid PHP version
+$minPHPVersion = '7.0';
+if (version_compare(PHP_VERSION, $minPHPVersion, '<')):
+  die("Your PHP version must be {$minPHPVersion} or higher to run Ombord. Current version: " . PHP_VERSION);
+endif;
+unset($minPHPVersion);
+
+// Set headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Max-Age: 3600");

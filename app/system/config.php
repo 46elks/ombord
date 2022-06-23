@@ -1,5 +1,12 @@
 <?php 
 
+// Check for a valid PHP version
+$minPHPVersion = '7.0';
+if (version_compare(PHP_VERSION, $minPHPVersion, '<')):
+  die("Your PHP version must be {$minPHPVersion} or higher to run Ombord. Current version: " . PHP_VERSION);
+endif;
+unset($minPHPVersion);
+
 // Start the session
 session_start();
 
