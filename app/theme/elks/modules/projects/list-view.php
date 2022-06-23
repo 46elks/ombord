@@ -15,5 +15,5 @@
   <?php foreach ($module as $key => $project) :?>
     <?php $templateLabel = ($project['is_template']) ? " - (mall)" : "";?>
     <li><a href="/projects/<?=$project['id'];?>"><?=$project['name'].$templateLabel;?></a></li>
-  <? endforeach; ?>
+  <?php endforeach; ?>
 </ul>
