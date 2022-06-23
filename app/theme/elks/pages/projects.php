@@ -4,6 +4,8 @@ login_required();
 $project_id = get_project_id();
 $projects = ui__get_projects($project_id);
 
+if (empty($projects)) ui__view_page('error-404.php');
+
 if(!empty($projects) && !empty($project_id)):
   $head_data = [
     'breadcrumbs' =>[
@@ -22,8 +24,6 @@ else:
 endif;
 
 ui__view_fragment("head.php", $head_data); ?>
-
-<?php if (empty($projects)) ui__view_page('error-404.php');?>
 
 <div class="outer-wrapper">
   <div class="inner-wrapper">

@@ -3,6 +3,8 @@ login_required();
 $task_id = get_task_id();
 $task = ui__get_task(get_task_id());
 
+if(empty($task)) ui__view_page("error-404.php");
+
 $breadcrumbs = [
   ['title' => "Ombord", 'url' => "/dashboard"]
 ];
@@ -24,10 +26,6 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
 
 <div class="outer-wrapper">
   <div class="inner-wrapper">
-
-    <?php if(empty($task)) :
-      ui__view_page("error-404.php");
-    else: ?>
 
       <section id="single-task">
         <div id="task-<?=$task['id'];?>" class="js-task-wrapper task-wrapper" data-id="<?=$task['id'];?>">
@@ -58,7 +56,6 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
     </div>
   </div>
 
-<?php endif; ?>
 
 <script>
 

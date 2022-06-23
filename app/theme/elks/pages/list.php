@@ -1,5 +1,7 @@
 <?php
 
+// Single list view
+
 login_required();
 $list = ui__get_list(get_list_id());
 

@@ -22,11 +22,11 @@ else: ?>
 <div class="outer-wrapper">
   <div class="inner-wrapper">
     <section id="login">
-      <h1>Logga in</h1>
+      <h1>Kom ombord</h1>
       <br>
       <form action="" method="post">
-        <input type="text" name="email" value="">
-        <input type="password" name="password" value="">
+        <input type="text" name="email" placeholder="E-postadress" value="">
+        <input type="password" name="password" value="" placeholder="Lösenord">
         <button type="submit" class="btn">Logga in</button>
       </form>
     </section>
