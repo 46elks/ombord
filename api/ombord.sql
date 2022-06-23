@@ -1,15 +1,8 @@
 # ************************************************************
-# Sequel Pro SQL dump
-# Version 4541
-#
-# http://www.sequelpro.com/
-# https://github.com/sequelpro/sequelpro
-#
 # Host: localhost (MySQL 5.7.32)
-# Database: onboard
-# Generation Time: 2022-05-18 19:07:03 +0000
+# Database: ombord
+# Generation Time: 2022-06-22 08:46:36 +0000
 # ************************************************************
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -48,9 +41,6 @@ CREATE TABLE `lists` (
   `description` longtext CHARACTER SET utf8mb4,
   `tasks_order` text CHARACTER SET utf8mb4,
   `is_deleted` int(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -100,10 +90,8 @@ CREATE TABLE `tasks` (
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `is_completed` tinyint(1) DEFAULT '0',
   `parent_id` int(11) DEFAULT '0' COMMENT 'For subtasks, set this to its parent task. Else set it to 0.',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `is_deleted` int(11) DEFAULT '0' COMMENT 'Soft delete. When a task is deleted by the user, set this field to 1.',
-  `completed_at` datetime DEFAULT NULL,
+  `is_deleted` int(11) DEFAULT '0',
+  `completed_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -181,16 +169,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `email`, `title`, `description`, `phone_work`, `phone_private`, `img`, `is_admin`, `is_deleted`, `api_user`, `api_secret`, `password_hash`, `password_salt`)
-VALUES
-	(1,'admin',NULL,'admin',NULL,NULL,NULL,NULL,NULL,1,0,'4ba1d4852680ed840b7966e7b9aa0e26','d45ab08c78ffac926a699e5067eca0e9','$2y$10$4hSA.4Ef9QEkaCcFlT6J8uOM.2Ihz0v8GMQZpOe.1ABMfArxzr9rS',NULL);
-
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 
