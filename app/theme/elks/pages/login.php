@@ -22,7 +22,7 @@ else: ?>
 <div class="outer-wrapper">
   <div class="inner-wrapper">
     <section id="login">
-      <h1>Kom ombord</h1>
+      <h1>Välkommen ombord</h1>
       <br>
       <form action="" method="post">
         <input type="text" name="email" placeholder="E-postadress" value="">
