@@ -1,6 +1,6 @@
 <?php $user = $data; ?>
 <?php ui__view_module("users", "contact-card.php", $user); ?>
-<p class="preamble"><?=$user['description']?></p>
+<p class="preamble"><?=escape_html($user['description']);?></p>
 
 <?php if($user['id'] == get_user_id()): ?>
 

@@ -14,6 +14,6 @@
 <ul class="block-list">
   <?php foreach ($module as $key => $project) :?>
     <?php $templateLabel = ($project['is_template']) ? " - (mall)" : "";?>
-    <li><a href="/projects/<?=$project['id'];?>"><?=$project['name'].$templateLabel;?></a></li>
+    <li><a href="/projects/<?=escape_html($project['id']);?>"><?=escape_html($project['name'].$templateLabel);?></a></li>
   <?php endforeach; ?>
 </ul>

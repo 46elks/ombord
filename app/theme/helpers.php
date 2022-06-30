@@ -515,6 +515,21 @@
   // }
 
 
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Escape bad characters in HTML and convert line breaks to <br>
+   * 
+   * @return nothing
+   * 
+   */ 
+
+  function escape_html($string) {
+    return nl2br(htmlentities($string));
+  }
+
   /* -------------------------------
    ------------------------------- */
 

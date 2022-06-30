@@ -2,8 +2,8 @@
 
 $completed_class = ($module['is_completed']) ? "task__is_completed" : "";
 
-if(!isset($module['id'])) $module['id'] = "";
-if(!isset($module['title']))  $module['title'] = "";
+(!isset($module['id'])) ? "" : escape_html($module['id']);
+(!isset($module['title'])) ? "" : escape_html($module['title']);
 
 ?>
 

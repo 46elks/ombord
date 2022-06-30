@@ -7,8 +7,8 @@
 ?>
 
 <section>
-  <h1><?=$project['title'];?></h1>
-  <p class="preamble"><?=nl2br($project['description']);?></p>
+  <h1><?=escape_html($project['title']);?></h1>
+  <p class="preamble"><?=escape_html($project['description']);?></p>
 </section>
 
 <div class="outer-wrapper">

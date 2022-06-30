@@ -1,7 +1,7 @@
 <?php 
-   if(!isset($module['title'])) $module['title'] = "";
-   if(!isset($module['description'])) $module['description'] = "";
-   if(!isset($module['id'])) $module['id'] = "";
+   if(!isset($module['title'])) escape_html($module['title']) = "";
+   if(!isset($module['description'])) escape_html($module['description']) = "";
+   if(!isset($module['id'])) escape_html($module['id']) = "";
  ?>
 
 <form method="post" action="/form-submit" id="edit-list-form">

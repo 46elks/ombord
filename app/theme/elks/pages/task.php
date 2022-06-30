@@ -31,13 +31,13 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
         <div id="task-<?=$task['id'];?>" class="js-task-wrapper task-wrapper" data-id="<?=$task['id'];?>">
           <header>
             <label class="checkbox-square">
-              <h1 class="checkbox__desc task-title js-task-title"><?=$task['title'];?></h1>
+              <h1 class="checkbox__desc task-title js-task-title"><?=escape_html($task['title']);?></h1>
               <input type="checkbox" <?=$is_completed;?> onclick="completeTask(<?=$task['id'];?>, this.checked, null);" class="js-complete-task js-task-status" id="<?=$task['id'];?>">
               <span class="checkmark"></span>
             </label>
             
           </header>
-          <p class="preamble task-description js-task-description"><?=$task['description'];?></p>
+          <p class="preamble task-description js-task-description"><?=escape_html($task['description']);?></p>
 
           <?php if(is_admin()):?>
             <button class="js-edit-task btn" onclick="editTask(<?=$task['id'];?>,editTaskCallback);" >Redigera</button>

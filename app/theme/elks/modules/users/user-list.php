@@ -6,7 +6,7 @@
       $new_user = (!$user['is_admin'])  ? " - ny älg 🥳 " : "";
     ?>
     <li class="<?=$current_user_class;?>">
-    <a href="team/<?=$user['id'];?>">
+    <a href="team/<?=escape_html($user['id']);?>">
       <?=$user['firstname'];?>
     </a>
     <?=$new_user;?>

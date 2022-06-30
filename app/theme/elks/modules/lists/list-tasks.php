@@ -3,10 +3,10 @@
   $list = $module;
 ?>
 
-<section id="list-<?=$list['id'];?>" class="js-list-wrapper" data-id="<?=$list['id'];?>">
+<section id="list-<?=escape_html($list['id']);?>" class="js-list-wrapper" data-id="<?=escape_html($list['id']);?>">
 
   <header class="list__header">
-    <h2 class="js-list-title list__title"><?=$list['title'];?></h2>
+    <h2 class="js-list-title list__title"><?=escape_html($list['title']);?></h2>
     <div class="list__nav">
       <ul class="inline-list">
         <?php if(!isset($_GET['list_id'])): ?>
@@ -19,7 +19,7 @@
       </ul>
     </div>
   </header>
-  <p class="js-list-description list__description"><?=$list['description'];?></p>
+  <p class="js-list-description list__description"><?=escape_html($list['description']);?></p>
 
   <?php ui__view_module("tasks", "list-view.php", $list);?>
   

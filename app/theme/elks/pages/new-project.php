@@ -42,7 +42,7 @@
           <option value="0" default >Ingen mall</option>
           <?php foreach ($projects as $key => $project) :?>
             <?php if($project['is_template']): ?>
-              <option value="<?=$project['id'];?>"><?=$project['name'];?></option>
+              <option value="<?=$project['id'];?>"><?=escape_html($project['name']);?></option>
               <?php endif; ?>
           <?php endforeach;?>
         </select>
