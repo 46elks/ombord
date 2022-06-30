@@ -32,7 +32,7 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
           <header>
             <label class="checkbox-square">
               <h1 class="checkbox__desc task-title js-task-title"><?=$task['title'];?></h1>
-              <input type="checkbox" <?=$is_completed;?> class="js-complete-task js-task-status" id="<?=$task['id'];?>">
+              <input type="checkbox" <?=$is_completed;?> onclick="completeTask(<?=$task['id'];?>, this.checked, null);" class="js-complete-task js-task-status" id="<?=$task['id'];?>">
               <span class="checkmark"></span>
             </label>
             
@@ -40,8 +40,8 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
           <p class="preamble task-description js-task-description"><?=$task['description'];?></p>
 
           <?php if(is_admin()):?>
-            <button class="js-edit-task btn">Redigera</button>
-            <button class="js-delete-task btn-inverse">Ta bort</button>
+            <button class="js-edit-task btn" onclick="editTask(<?=$task['id'];?>,editTaskCallback);" >Redigera</button>
+            <button class="js-delete-task btn-inverse" onclick="deleteTask(<?=$task['id'];?>,deleteTaskCallback);">Ta bort</button>
             <br>
 
             <div id="modal-task-update" class="js-modal modal hidden">
@@ -55,56 +55,5 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
 
     </div>
   </div>
-
-
-<script>
-
-  let task = document.querySelector('.js-task-wrapper');
-  if(task){
-   let task_data = getTaskData(task);
-   bindTaskEvents(task, task_data);
- }
-
-    // Edit task
-    let editModal = document.getElementById('modal-task-update');
-    let editBtn  = document.querySelector(".js-edit-task");
-
-    if(editBtn){
-      editBtn.addEventListener('click',function(){
-        editModal.classList.remove("hidden");
-
-        // Get fresh data from database to ensure it's up to date
-        getTask(<?=$task_id;?>,true,function(taskData){
-          editModal.querySelector('#title').value = taskData.title;
-          editModal.querySelector('#description').value = taskData.description;
-          editModal.querySelector('#task_id').value = taskData.id;
-        });
-      });
-    }
-
-    let formTaskUpdate = document.getElementById('edit-task-form');
-    if(formTaskUpdate){
-      formHandler.init(formTaskUpdate,function(data){
-        app.log(data);
-        let taskElement = document.getElementById('task-'+data.task_id);
-        if(taskElement){
-          taskElement.querySelector('.task-title').innerHTML = data.title;
-          taskElement.querySelector('.task-description').innerHTML = data.description;
-        }
-        editModal.classList.add("hidden");
-      });
-    }
-
-    // Cancel task update
-    let cancelBtn = document.querySelector('.js-btn-cancel');
-    if(cancelBtn){
-      cancelBtn.addEventListener('click',function(e){
-        e.preventDefault;
-        editModal.classList.add("hidden");
-      });
-    }
-
-</script>
-
 
 <?php ui__view_fragment("foot.php"); ?>

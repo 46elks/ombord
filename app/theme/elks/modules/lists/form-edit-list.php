@@ -1,3 +1,9 @@
+<?php 
+   if(!isset($module['title'])) $module['title'] = "";
+   if(!isset($module['description'])) $module['description'] = "";
+   if(!isset($module['id'])) $module['id'] = "";
+ ?>
+
 <form method="post" action="/form-submit" id="edit-list-form">
 
   <label for="title">Titel</label>

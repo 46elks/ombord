@@ -1,40 +1,92 @@
+/*
+
+  === API modifiers ===
+  - addTask()
+  - completeTask()
+  - deleteTask()
+  - getTasks() - plural
+  - getTask() - singluar
+  - storeTasksOrder()
+
+  === DOM modifers ===
+  - renderTask()
+  - toggleTaskDetails() - currently not in use
+  - getTaskData()
+  - findTaskId()
+  - setTaskData()
+  - editTask() - Trigger edit mode
+  - editTaskCallback()
+  - deleteTaskCallback()
+
+*/
+
+// Create new task
+function addTask(form, callback = null){
+  app.log("Add task");
+  app.log(form);
+
+  submitForm(form,function(data){
+    if(typeof callback == 'function') callback(data);
+  });
+
+}
+
 function completeTask(task_id, status,callback=null){
   app.log("Complete task "+task_id+" with "+status);
 
-  apiRequest.send("patch", {'_action':'complete_task','task_id':task_id,'is_completed':status}, function(data){
+  apiPost({'_action':'complete_task','task_id':task_id,'is_completed':status}, function(data){
     app.log("Task completed");
-    if(callback !== null) callback(data);
+    if(typeof callback == 'function') callback(data);
   });
 }
 
+// Delete task
 function deleteTask(task_id, callback = null){
-  app.log("Deleting task");
-  apiRequest.send("delete", {"_action":"delete_task","task_id" : task_id},  function(data){
-    app.log("Task deleted");
-    if(callback !== null) callback(data);
-  });
+  app.log("Preparing to delete task with id "+task_id);
+
+  if(confirm("Vill du ta bort uppgiften?")){
+    apiPost({"_action":"delete_task","task_id" : task_id}, function(data){
+      app.log("Task deleted");
+      if(typeof callback == 'function') callback(data);
+    });
+  } else{
+    app.log("Task not deleted.");
+  }
 }
 
-function updateTask(task_id, callback = null){
-  app.log("Updating task");
-  apiRequest.send("patch", {"_action":"update_task","task_id" : task_id},  function(data){
-    app.log("Task updated");
-    if(callback !== null) callback(data);
-  });
+// Function to be called after a task has been deleted
+function deleteTaskCallback(data){
+  let currentURL = window.location.href;
+  app.log(currentURL);
+
+  let parts = currentURL.split("/tasks");
+
+  //Redirect URL
+  if(parts.length > 1)  location.href = parts[0];
+
+  //Remove task from dom
+  let taskElement = document.getElementById('task-'+data.task_id);
+  if(taskElement) taskElement.remove();
+
 }
 
-
+// Get multiple tasks
 function getTasks(list_id = null, get_subtasks = false, callback=null){
   app.log("Getting list tasks");
-  apiRequest.send("get", {"_action":"GET_TASKS","list_id":list_id,"get_subtasks":get_subtasks}, function(data){
-    if(callback !== null) callback(data);
+
+  apiPost({"_action":"GET_TASKS","list_id":list_id,"get_subtasks":get_subtasks}, function(data){
+    app.log("Tasks retrieved");
+    if(typeof callback == 'function') callback(data);
   });
 }
 
+// Get a signle tasks
 function getTask(task_id, get_subtasks = false, callback=null){
-  app.log("Getting task "+task_id);
-  apiRequest.send("get", {"_action":"GET_TASK","task_id":task_id,"get_subtasks":get_subtasks}, function(data){
-    if(callback !== null) callback(data);
+  app.log("Getting task with id of "+task_id);
+  
+  apiPost({"_action":"GET_TASK","task_id":task_id,"get_subtasks":get_subtasks}, function(data){
+    app.log("Task retrieved");
+    if(typeof callback == 'function') callback(data);
   });
 }
 
@@ -60,9 +112,11 @@ function setTaskData(data, taskElement){
   // Task title
   if(data.title && taskTitle) taskTitle.innerHTML = data.title;
 
-
   // Task description
   if(data.description) {
+    let desc = taskElement.querySelector(".js-task-description");
+    if(desc) desc.innerHTML = data.description;
+    
     let fullDesc = taskElement.querySelector(".js-task-description-full");
     if(fullDesc) fullDesc.innerHTML = data.description; 
 
@@ -91,47 +145,68 @@ function renderTask(data, taskTemplate, parentElement, callback = null){
   taskElement = setTaskData(data, taskElement);
   
   // Append task to DOM
-  parentElement.append(taskElement);
-  taskElement = document.getElementById("task-"+data.id);
+  if(parentElement){
+    parentElement.append(taskElement);
+  }
   
+  taskElement = document.getElementById("task-"+data.id);
   if(callback !== null) callback(taskElement);
   
 }
 
-// Bind task events
-function bindTaskEvents(taskElement, data = null){
-  app.log("Bind task events");
-  app.log(taskElement);
+// Edit task
+function editTask(task_id, callback = null){
 
-  // Checkbox
-  let checkbox = taskElement.querySelector(".js-complete-task");
-  if(checkbox){
-    checkbox.addEventListener("change",function(){
-      completeTask(checkbox.id, checkbox.checked, null);
+  let editModal = document.getElementById('modal-task-update');
+  editModal.classList.remove("hidden");
+
+  // Get fresh data from database to ensure it's up to date
+  getTask(task_id,true,function(data){
+    editModal.querySelector('#title').value = data.title;
+    editModal.querySelector('#description').value = data.description;
+    editModal.querySelector('#task_id').value = data.id;
+  });
+
+  let formTaskUpdate = document.getElementById('edit-task-form');
+  if(formTaskUpdate){
+
+    formTaskUpdate.addEventListener("submit",function(e){
+      app.log("Form submitted");
+      e.preventDefault();
+
+      // Submit the form
+      submitForm(formTaskUpdate,function(data){
+        app.log(data);
+
+        // Hide modal
+        editModal.classList.add("hidden");
+
+        // Run callback
+        if(callback !== null) callback(data);
+
+      });
     });
   }
 
-  // Toggle details
-  let detailsBtn = taskElement.querySelector(".js-toggle-details");
-  if(detailsBtn){
-    detailsBtn.addEventListener("click",function(){
-      toggleTaskDetails(taskElement);
+  // Cancel task update
+  let cancelBtn = editModal.querySelector('.js-btn-cancel');
+  if(cancelBtn){
+    cancelBtn.addEventListener('click',function(e){
+      e.preventDefault();
+      editModal.classList.add("hidden");
     });
   }
-
-  // Delete task
-  let deleteBtn = taskElement.querySelector(".js-delete-task");
-  if(deleteBtn){
-    deleteBtn.addEventListener("click", function(){
-      if(confirm("Vill du ta bort denna uppgift?")){
-        deleteTask(data.id, function(){
-          taskElement.remove();
-        });
-      }
-    });
-  }
-
 }
+
+// Function to be called after a task has been edited
+function editTaskCallback(data){
+  
+  // Update changes in DOM
+  let taskElement = document.getElementById('task-'+data.task_id);
+  setTaskData(data,taskElement);
+  
+}
+
 
 // Toggle task details
 function toggleTaskDetails(taskElement){
@@ -159,8 +234,24 @@ function toggleTaskDetails(taskElement){
 
 // Get task data from DOM
 function getTaskData(taskElement){
+
+  app.log(taskElement);
+
+  if(!taskElement) return {};
+
+  // Find task elements in DOM
+  let title = taskElement.querySelector(".js-task-title");
+  let description = taskElement.querySelector(".js-task-description");
+
+  description = (description) ? description.innerHTML : "";
+  title = (title) ? title.innerHTML : "";
+  
+  // Build dataset to return
   return {
     id: findTaskId(taskElement),
+    title: title,
+    description: description,
+
   }
 }
 
@@ -178,4 +269,30 @@ function findTaskId(taskElement){
 
   return null;
 
+}
+
+// Enable dragging of tasks to change order in a list
+$( function() {
+  $( ".js-tasks-list" ).sortable({
+    stop: storeTasksOrder,
+    axis: "y",
+    handle: ".js-task-handle",
+    cursor: "grabbing"
+  });
+} );
+
+function storeTasksOrder(e){
+  app.log("Sorting tasks..");
+  let listId = e.target.dataset.id;
+  let orderOfAllTasksArray = $(e.target).sortable('toArray', {attribute: "data-id"});
+  var orderOfAllTasks = orderOfAllTasksArray.join(',');
+  let data = {
+    _action: "update_tasks_order",
+    tasks_order: orderOfAllTasks,
+    list_id: listId
+  }
+  apiPost(data,function(data){
+    app.log("Tasks order updated");
+    app.log(data);
+  });
 }

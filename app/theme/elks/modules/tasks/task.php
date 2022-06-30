@@ -1,4 +1,11 @@
-<?php $completed_class = ($module['is_completed']) ? "task__is_completed" : "";?>
+<?php 
+
+$completed_class = ($module['is_completed']) ? "task__is_completed" : "";
+
+if(!isset($module['id'])) $module['id'] = "";
+if(!isset($module['title']))  $module['title'] = "";
+
+?>
 
 <li id="task-<?=$module['id'];?>" class="js-task-wrapper js-task-object <?=$completed_class;?>" data-id="<?=$module['id'];?>">
   <?php if($module['is_completed']) : ?>

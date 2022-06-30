@@ -14,33 +14,3 @@
 </section>
 
 <?php ui__view_module("lists", "template-new-list.php", []);?>
-
-<script>
-
-  // // ========
-  // // Add list
-  // // ========
-  // let formAddList = document.getElementById('form-add-list');
-  // if(formAddList){
-  //   formHandler.init(formAddList,function(data){
-  //     app.log("New list created");
-  //     console.log(data);
-  //     formAddList.querySelector('#new-list-field').value = "";
-  //     let listElement = document.getElementById('new-list-template');
-  //     let parentElement = document.querySelector('.js-list-parent');
-  //     renderList(data, listElement, parentElement);
-  //   });
-  // }
-
-  // ========
-  // Bind list events
-  // ========
-  // let lists = document.querySelectorAll('.js-list-wrapper');
-  // if(lists){
-  //   for (var i = lists.length - 1; i >= 0; i--) {
-  //     bindListEvents(lists[i]);
-  //   }  
-  // }
-
-
-</script>

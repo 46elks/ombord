@@ -41,24 +41,7 @@
         <button type="submit" class="btn">Spara</button>
       </form>
       <p class="form-message"></p>
-
     </section>
-
-    
   </details>
-  
-  <script src="/js/users.js"></script>
-  <script>
-
-    // Find form for adding new users
-    let formUpdateUser = document.getElementById("form-update-user");
-    if(formUpdateUser){
-      formHandler.init(formUpdateUser,function(data){
-        app.log(data);
-        document.querySelector('.form-message').innerHTML = "Användare uppdaterad";
-      });
-    }
-
-  </script>
 
   <?php endif; ?>

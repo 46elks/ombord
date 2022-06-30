@@ -51,22 +51,4 @@
   </div>
 </div>
 
-<script>
-  
-  let formAddUser = document.querySelector(".js-form-add-user");
-  if (formAddUser) {
-    formHandler.init(formAddUser,function(data){
-      app.log(data);
-      if(data.project_id){
-        location.href = "/projects/"+data.project_id;
-      }else{
-        let statusMessage = document.querySelector('.form-message');
-        if(statusMessage) statusMessage.innerHTML =" Användare skapad.";
-      }
-    });
-  }
-
-</script>
-
-
 <?php ui__view_fragment("foot.php");  ?>

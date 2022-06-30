@@ -13,8 +13,8 @@
         <li><span class="list__show-more"><a href="<?=ui__get_list_url($list['id']);?>">Visa mer</a></span></li>
         <?php endif; ?>
         <?php if(is_admin()): ?>
-          <li><a href="javascript:void(0);" onClick="editList(<?=$list['id'];?>, editedListCallback);" class="">Redigera</a></li>
-            <li><a href="javascript:void(0);" onClick="deleteList(<?=$list['id'];?>, deletedListCallback);" class="btn--warning">Ta bort</a></li>
+          <li><a href="javascript:void(0);" onClick="editList(<?=$list['id'];?>, editListCallback);" class="js-edit-list-btn">Redigera</a></li>
+          <li><a href="javascript:void(0);" onClick="deleteList(<?=$list['id'];?>, deleteListCallback);" class="js-delete-list-btn btn--warning">Ta bort</a></li>
         <?php endif; ?>
       </ul>
     </div>

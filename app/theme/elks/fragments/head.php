@@ -10,9 +10,11 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/jquery-1.12.4.min.js"></script>
   <script src="/js/query-ui-1.12.1.min.js"></script>
-  <script src="/js/script.js"></script>
+  <script src="/js/helpers.js"></script>
   <script src="/js/tasks.js"></script>
   <script src="/js/lists.js"></script>
+  <script src="/js/projects.js"></script>
+  <script src="/js/users.js"></script>
 
   <title>Ombord</title>
 </head>
