@@ -13,7 +13,6 @@
   <script src="/js/helpers.js"></script>
   <script src="/js/tasks.js"></script>
   <script src="/js/lists.js"></script>
-  <script src="/js/projects.js"></script>
   <script src="/js/users.js"></script>
 
   <title>Ombord</title>
