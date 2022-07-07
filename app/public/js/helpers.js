@@ -79,3 +79,19 @@ function apiPost(data, callback = null){
     console.log(e);
   };
 }
+
+// ===========
+// Close modal 
+// ===========
+function closeModal(modal_id){
+  let modal = document.getElementById(modal_id);
+  if(modal) modal.classList.add('hidden');
+}
+
+// ==========
+// Open modal 
+// ==========
+function openModal(modal_id){
+  let modal = document.getElementById(modal_id);
+  if(modal) modal.classList.remove('hidden');
+}

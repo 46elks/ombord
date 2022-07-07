@@ -3,13 +3,11 @@
 // Trigger: Add tasks
 // ==================
 let listWrapper = document.getElementById('lists');
-
 if(listWrapper){
   listWrapper.addEventListener("click",function(e){
     e.preventDefault();
-
     if(e.target.classList.contains('js-new-task-btn')){
-      console.log("Button 'new task' clicked");
+      app.log("Button 'new task' clicked");
       let form = e.target.closest('form');
       let inputField = form.querySelector('.js-new-task-field');
       
@@ -26,9 +24,8 @@ if(listWrapper){
         renderTask(data, taskTemplate, parentElement);
       });
 
-    
     } else if (e.target.classList.contains('js-new-list-btn')){
-      console.log("Button 'new list' clicked");
+      app.log("Button 'new list' clicked");
       let form = e.target.closest('form');
       let inputField = form.querySelector('.js-new-list-field');
       
@@ -101,5 +98,35 @@ if(formUpdateUser){
       let statusMessage = document.querySelector('.form-message');
       if(statusMessage) statusMessage.innerHTML = "Användare uppdaterad";
     });
+  });
+}
+
+
+// ====================
+// Trigger: Update task
+// ====================
+let formTaskUpdate = document.getElementById('form-edit-task');
+if(formTaskUpdate){
+
+  formTaskUpdate.addEventListener("submit",function(e){
+    app.log("Form submitted");
+    e.preventDefault();
+
+    // Submit the form
+    submitForm(formTaskUpdate,function(data){
+      app.log(data);
+      editTaskCallback(data)
+    });
+  });
+}
+
+// ==================
+// Cancel task update
+// ==================
+let btnCancelTaskUpdate = document.querySelector('#modal-task-update .js-btn-cancel');
+if(btnCancelTaskUpdate){
+  btnCancelTaskUpdate.addEventListener('click',function(e){
+    e.preventDefault();
+    closeModal('modal-task-update');
   });
 }

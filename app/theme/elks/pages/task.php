@@ -43,12 +43,6 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
             <button class="js-edit-task btn" onclick="editTask(<?=$task['id'];?>,editTaskCallback);" >Redigera</button>
             <button class="js-delete-task btn-inverse" onclick="deleteTask(<?=$task['id'];?>,deleteTaskCallback);">Ta bort</button>
             <br>
-
-            <div id="modal-task-update" class="js-modal modal hidden">
-              <div class="modal__content">
-                <?php ui__view_module("tasks", "form-edit-task.php", []);?>
-              </div>
-            </div>
           <?php endif;?>
         </div>
       </section>

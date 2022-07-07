@@ -158,7 +158,6 @@ function renderTask(data, taskTemplate, parentElement, callback = null){
 function editTask(task_id, callback = null){
 
   let editModal = document.getElementById('modal-task-update');
-  editModal.classList.remove("hidden");
 
   // Get fresh data from database to ensure it's up to date
   getTask(task_id,true,function(data){
@@ -167,35 +166,7 @@ function editTask(task_id, callback = null){
     editModal.querySelector('#task_id').value = data.id;
   });
 
-  let formTaskUpdate = document.getElementById('edit-task-form');
-  if(formTaskUpdate){
-
-    formTaskUpdate.addEventListener("submit",function(e){
-      app.log("Form submitted");
-      e.preventDefault();
-
-      // Submit the form
-      submitForm(formTaskUpdate,function(data){
-        app.log(data);
-
-        // Hide modal
-        editModal.classList.add("hidden");
-
-        // Run callback
-        if(callback !== null) callback(data);
-
-      });
-    });
-  }
-
-  // Cancel task update
-  let cancelBtn = editModal.querySelector('.js-btn-cancel');
-  if(cancelBtn){
-    cancelBtn.addEventListener('click',function(e){
-      e.preventDefault();
-      editModal.classList.add("hidden");
-    });
-  }
+  openModal('modal-task-update');
 }
 
 // Function to be called after a task has been edited
@@ -204,7 +175,8 @@ function editTaskCallback(data){
   // Update changes in DOM
   let taskElement = document.getElementById('task-'+data.task_id);
   setTaskData(data,taskElement);
-  
+
+  closeModal("modal-task-update");  
 }
 
 

@@ -21,9 +21,9 @@ section#login form *{
   border: 1px solid var(--medium-grey);
 }
 
-#edit-task-form{}
-#edit-task-form textarea,
-#edit-task-form input{
+#form-edit-task{}
+#form-edit-task textarea,
+#form-edit-task input{
   width: 100%;
 }
 
