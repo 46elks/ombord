@@ -6,24 +6,7 @@ $projects = ui__get_projects($project_id);
 
 if (empty($projects)) ui__view_page('error-404.php');
 
-if(!empty($projects) && !empty($project_id)):
-  $head_data = [
-    'breadcrumbs' =>[
-      ['title' => "Ombord", 'url' => "/dashboard"],
-      ['title' => "Projekt",'url' => "/projects"],
-      ['title' => $projects[0]['name']],
-    ]
-  ];
-else:
-  $head_data = [
-    'breadcrumbs' =>[
-      ['title' => "Ombord", 'url' => "/dashboard"],
-      ['title' => "Projekt"],
-    ]
-  ];
-endif;
-
-ui__view_fragment("head.php", $head_data); ?>
+ui__view_fragment("head.php", ['breadcrumbs' => ui__get_breadcrumbs("project")]); ?>
 
 <div class="outer-wrapper">
   <div class="inner-wrapper">

@@ -1,14 +1,9 @@
 <?php
 
   login_required();
-
-  $breadcrumbs = [
-    ['title' => "Ombord", 'url' => "/dashboard"],
-    ['title' => "Skapa projekt"],
-  ];
-
+  
   // Start printing the view
-  ui__view_fragment("head.php", ['breadcrumbs'=>$breadcrumbs]);
+  ui__view_fragment("head.php", ['breadcrumbs'=>ui__get_breadcrumbs("new-project")]);
 ?>
 
 <div class="outer-wrapper">

@@ -5,22 +5,7 @@ $task = ui__get_task(get_task_id());
 
 if(empty($task)) ui__view_page("error-404.php");
 
-$breadcrumbs = [
-  ['title' => "Ombord", 'url' => "/dashboard"]
-];
-
-if (!empty(get_project_id())) :
-  array_push($breadcrumbs, ['title' => 'Projekt', 'url' => "/projects/".get_project_id()]);
-endif;
-
-if (!empty(get_list_id())) :
-  array_push($breadcrumbs, ['title' => 'Listor', 'url' => '/lists/'.get_list_id()]);
-endif;
-
-array_push($breadcrumbs,['title' => substr($task['title'],0,20)."..."]);
-$head_data = ['breadcrumbs' => $breadcrumbs];
-
-ui__view_fragment("head.php", $head_data); 
+ui__view_fragment("head.php", ['breadcrumbs' => ui__get_breadcrumbs("project")]); 
 $is_completed = ($task['is_completed']) ? "checked" : "";
 ?>
 
@@ -35,7 +20,7 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
               <input type="checkbox" <?=$is_completed;?> onclick="completeTask(<?=$task['id'];?>, this.checked, null);" class="js-complete-task js-task-status" id="<?=$task['id'];?>">
               <span class="checkmark"></span>
             </label>
-            
+
           </header>
           <p class="preamble task-description js-task-description"><?=escape_html($task['description']);?></p>
 

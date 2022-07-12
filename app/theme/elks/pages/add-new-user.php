@@ -1,14 +1,6 @@
 <?php 
   login_required();
-
-  $head_data = [
-    'breadcrumbs' =>[
-      ['title' => "Ombord", 'url' => "/dashboard"],
-      ['title' => "Lägg till ny älg"],
-    ]
-  ];
-
-  ui__view_fragment("head.php", $head_data); 
+  ui__view_fragment("head.php", ['breadcrumbs' => ui__get_breadcrumbs("new-user")]); 
 ?>
 
 <div class="outer-wrapper">

@@ -4,20 +4,11 @@ login_required();
 $team_member_id = get_team_member_id();
 if($team_member_id != null):
   $user = ui__get_user($team_member_id);
-  $breadcrumbs = [
-     ['title' => "Ombord",'url'=>'/dashboard'],
-     ['title' => "Team", 'url' => '/team'],
-     ['title' => $user['firstname']],
-   ];
 else:
   $people = ui__get_users();
   shuffle($people);
-  $breadcrumbs = [
-     ['title' => "Ombord",'url'=>'/dashboard'],
-     ['title' => "Team"],
-   ];
 endif;
-ui__view_fragment("head.php", ['breadcrumbs'=>$breadcrumbs]);
+ui__view_fragment("head.php", ['breadcrumbs'=>ui__get_breadcrumbs("team")]);
 ?>
 
 <div class="outer-wrapper">

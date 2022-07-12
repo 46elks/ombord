@@ -25,27 +25,11 @@
       <div class="inner-wrapper">
         <div class="row">
 
-        <?php if(is_logged_in()): ?>
-          <?php if(isset($data['breadcrumbs'])): ?>
-            <nav class="breadcrumbs">
-              <ul class="inline-list">
-                <?php foreach ($data['breadcrumbs'] as $key => $crumb) :?>
-                  <?php if(isset($crumb['url'])): ?>
-                    <li class="breadcrumbs__item"><a href="<?=$crumb['url'];?>"><?=$crumb['title'];?></a></li>
-                  <?php else: ?>
-                    <li class="breadcrumbs__item"><?=$crumb['title'];?></li>
-                  <?php endif; ?>
-                <?php endforeach; ?>
-              </ul>
-            </nav>
-          <?php else: ?>
-            <nav class="breadcrumbs">
-              <ul class="inline-list">
-                  <li class="breadcrumbs__item"><a href="/dashboard">Ombord</a></li>
-              </ul>
-            </nav>
-          <?php endif; ?>
-        <?php endif; ?>
+        <?php 
+          if(is_logged_in() && !empty($data['breadcrumbs'])):
+              ui__view_module("breadcrumbs","breadcrumbs.php", $data['breadcrumbs']);
+          endif; 
+        ?>
         
           <nav class="global-nav">
             <ul class="inline-list">

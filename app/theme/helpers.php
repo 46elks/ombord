@@ -181,7 +181,19 @@
   }
 
 
+  /* -------------------------------
+   ------------------------------- */
 
+  /**
+   * Get a project url
+   * 
+   * @return string
+   * 
+   */ 
+
+  function ui__get_project_url($project_id){
+    return "/projects/".$project_id;
+  }
 
   /* -------------------------------
    ------------------------------- */
@@ -445,6 +457,25 @@
   function ui__get_sorted_tasks($list_id, $task_order) {
     $tasks = ui__get_tasks(null,$list_id);
     return ui__sort_tasks($tasks,$task_order);
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Load view
+   * 
+   * @param $type (string)
+   * 
+   * @return array
+   * 
+   */
+
+  function ui__get_breadcrumbs($type) {
+    if(empty($type) || empty($type)) return [];
+    include(THEME.DS."modules".DS."breadcrumbs".DS.$type.".php");
+    return $breadcrumbs;
   }
 
 
