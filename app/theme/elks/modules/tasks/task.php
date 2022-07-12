@@ -13,4 +13,15 @@
     <span class="task__handle js-task-handle">::</span>
   <?php endif; ?>
   <a href="<?=ui__get_task_url($id);?>" class="js-task-title task__title"><?=$title;?></a>
+  <?php if(is_admin()): ?>
+    
+    <nav class="task__menu">
+      <ul class="inline-list">
+        <?php if(is_admin()): ?>
+          <li><a href="javascript:void(0);" onClick="editTask(<?=$id;?>, editTaskCallback);" class="js-edit-list-btn"><span class="icon-pencil"></span></a></li>
+          <li><a href="javascript:void(0);" onClick="deleteTask(<?=$id;?>, deleteTaskCallback);" class="js-delete-list-btn btn--warning"><span class="icon-bin"></span></a></li>
+        <?php endif; ?>
+      </ul>
+    </nav>
+  <?php endif; ?>
 </li>
