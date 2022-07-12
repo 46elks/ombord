@@ -23,6 +23,13 @@ ul.inline-list{
   margin-bottom: 5px;
 }
 
+ul.checkbox-list{
+  padding: 0;  
+}
+ul.checkbox-list li{
+  list-style: none;
+}
+
 .arrow-left:before{
   content: "\2190";
   margin-right: 5px;

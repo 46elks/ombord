@@ -18,4 +18,6 @@
   transform: translateY(-50%);
   border-radius: 5px;
   box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: scroll;
 }

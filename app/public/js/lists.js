@@ -246,3 +246,32 @@ function deleteListCallback(data){
   if(listElement) listElement.remove();
 
 }
+
+// Toggle between adding and removing a task from a list
+function toggleListTask(taskId, listId, state){
+  (state) ? addListTask(taskId, listId) : deleteListTask(taskId, listId);
+}
+
+// Add a task to a list
+function addListTask(taskId, listId){
+  let data = {
+    _action: "ADD_LIST_TASK",
+    task_id: taskId,
+    list_id: listId
+  }
+  apiPost(data,function(data){
+    app.log("Task "+taskId+" added to list "+listId);
+  });
+}
+
+// Remove a task from a list
+function deleteListTask(taskId, listId){
+  let data = {
+    _action: "DELETE_LIST_TASK",
+    task_id: taskId,
+    list_id: listId
+  }
+  apiPost(data,function(data){
+    app.log("Task "+taskId+" deleted from list "+listId);
+  });
+}

@@ -15,7 +15,7 @@
 
   function list_tasks__delete($list_id, $task_id){
 
-    if(empty($id)) :
+    if(empty($list_id)) :
       debug__log("Unable to remove task from list due to missing list id");
       api__response(400, "Missing list id");
     elseif(empty($task_id)) :

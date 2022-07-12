@@ -59,7 +59,6 @@ switch (strtoupper($action)) {
     $result = ui__api_delete("/tasks", $data, false, false, true);
     parse_request($result[0], $result[1]);
     break;
-  
 
   // LISTS
   case 'GET_LIST':
@@ -93,6 +92,17 @@ switch (strtoupper($action)) {
     parse_request($result[0], $result[1]);
     break;
 
+  case 'ADD_LIST_TASK':
+    $data = ["task_id" => $task_id, "list_id" => $list_id];
+    $result = ui__api_post("/lists/tasks", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
+
+  case 'DELETE_LIST_TASK':
+    $data = ["task_id" => $task_id, "list_id" => $list_id];
+    $result = ui__api_delete("/lists/tasks", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
 
   // PROJECTS
   case 'ADD_PROJECT':

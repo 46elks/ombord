@@ -7,6 +7,11 @@ switch ($_SERVER["REQUEST_URI"]) {
   case '/v1/tasks':
     load_model("tasks", "index");
     break;
+  
+  case '/api/v1/tasks/lists':
+  case '/v1/tasks/lists':
+    load_model("tasks/lists", "index");
+    break;
 
   case '/api/v1/projects':
   case '/v1/projects':

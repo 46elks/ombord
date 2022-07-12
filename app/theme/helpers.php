@@ -311,21 +311,54 @@
    * Get lists
    * 
    * @param $list_id (int)
-   * @param $user_id (int)
+   * @param $args (array)
    * 
    * @return array
    * 
    */
 
-  function ui__get_lists($list_id = null, $user_id = null) {
-    $data = ui__api_get("/lists", ["list_id" => $list_id, 'user_id'=>$user_id]);
-    if(empty($data)) return [];
-    return $data;
+  function ui__get_lists($list_id = null, $args = []) {
+
+    $params = $args;
+    
+    $params['list_id'] = $list_id;
+    $lists = ui__api_get("/lists", $params);
+
+    // Get all lists that belongs to a specific task
+    $task_lists = [];
+    if(isset($args['task_id'])):
+
+      $task_lists = ui__api_get("/tasks/lists", ["id" => $args['task_id']]);
+      if(!empty($task_lists)):
+        $task_lists_tmp = [];
+        foreach ($task_lists as $key => $list) :
+          array_push($task_lists_tmp, $list['id']);
+        endforeach;
+        $task_lists = $task_lists_tmp;
+      endif;
+
+    endif;
+
+    if(!empty($task_lists) && !empty($lists)):
+
+      $lists_tmp = $lists;
+      foreach ($lists as $key => $list) :
+        if(in_array($list['id'], $task_lists)):
+          $lists_tmp[$key]['is_chosen'] = 1;
+        else:
+          $lists_tmp[$key]['is_chosen'] = 0;
+        endif;
+      endforeach;
+      $lists = $lists_tmp;
+    endif;
+
+    if(empty($lists)) return [];
+    return $lists;
   }
 
   // Same as above but returns only one result
-  function ui__get_list($list_id = null, $user_id = null) {
-    $data = ui__get_lists($list_id, $user_id);
+  function ui__get_list($list_id = null) {
+    $data = ui__get_lists($list_id);
     if(count($data) < 1) return $data;
     return $data[0];
   }
