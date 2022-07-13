@@ -243,28 +243,21 @@ function findTaskId(taskElement){
 
 }
 
-// Enable dragging of tasks to change order in a list
-$( function() {
-  $( ".js-tasks-list" ).sortable({
-    stop: storeTasksOrder,
-    axis: "y",
-    handle: ".js-task-handle",
-    cursor: "grabbing"
-  });
-} );
+// Save the new order of the tasks within a list
+// tasksOrder = comma separated string with task ids
+function updateSortedTasks(tasksOrder, listId){
+  app.log("Update tasks order in list");
+  app.log(tasksOrder);
 
-function storeTasksOrder(e){
-  app.log("Sorting tasks..");
-  let listId = e.target.dataset.id;
-  let orderOfAllTasksArray = $(e.target).sortable('toArray', {attribute: "data-id"});
-  var orderOfAllTasks = orderOfAllTasksArray.join(',');
   let data = {
     _action: "update_tasks_order",
-    tasks_order: orderOfAllTasks,
+    tasks_order: tasksOrder,
     list_id: listId
   }
+  
   apiPost(data,function(data){
     app.log("Tasks order updated");
     app.log(data);
   });
+
 }

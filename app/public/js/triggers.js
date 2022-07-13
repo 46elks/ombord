@@ -20,8 +20,15 @@ if(listWrapper){
         let taskTemplate = document.getElementById('new-task-template');
         let parentElement = document.querySelector('#list-'+data.list_id+' .task-list');
 
-        // Render list to DOM
-        renderTask(data, taskTemplate, parentElement);
+        // Render task to DOM
+        renderTask(data, taskTemplate, parentElement,function(){
+          // Update the order of the tasks in the list
+          let listElement = $('#list-'+data.list_id+' .js-tasks-list');
+          let orderOfAllTasksArray = listElement.sortable('toArray', {attribute: "data-id"});
+          var orderOfAllTasks = orderOfAllTasksArray.join(',');
+          updateSortedTasks(orderOfAllTasks,data.list_id);
+        });
+        
       });
 
     } else if (e.target.classList.contains('js-new-list-btn')){
@@ -130,3 +137,22 @@ if(btnCancelTaskUpdate){
     closeModal('modal-task-update');
   });
 }
+
+// ===========================================================
+// Enable dragging of tasks to change the order with in a list
+// ===========================================================
+$( function() {
+  $( ".js-tasks-list" ).sortable({
+    stop: function(e){
+      app.log("Sorting tasks..");
+      app.log(e);
+      let listId = e.target.dataset.id;
+      let orderOfAllTasksArray = $(e.target).sortable('toArray', {attribute: "data-id"});
+      var orderOfAllTasks = orderOfAllTasksArray.join(',');
+      updateSortedTasks(orderOfAllTasks,listId);
+    },
+    axis: "y",
+    handle: ".js-task-handle",
+    cursor: "grabbing"
+  });
+} );
