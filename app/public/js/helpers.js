@@ -95,3 +95,22 @@ function openModal(modal_id){
   let modal = document.getElementById(modal_id);
   if(modal) modal.classList.remove('hidden');
 }
+
+// ======================================
+// Refresh content inside the trix editor
+// ======================================
+function trixRefresh(trix, content){
+
+  if(!trix) return false;
+
+  // Clear any previous contents in the editor
+  let textDoc = trix.editor.getDocument().toString();
+  if(textDoc){
+    trix.editor.setSelectedRange([0, textDoc.length])
+    trix.editor.deleteInDirection("forward")
+  }
+
+  // Add content to the editor
+  trix.editor.insertHTML(content);
+
+}

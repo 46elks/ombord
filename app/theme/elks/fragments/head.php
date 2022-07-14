@@ -8,12 +8,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@1,500&family=Cairo&family=Comfortaa:wght@300&family=Montserrat:wght@500&family=Secular+One&family=Ubuntu+Mono&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/trix-1.3.1.css">
   <script src="/js/jquery-1.12.4.min.js"></script>
   <script src="/js/query-ui-1.12.1.min.js"></script>
   <script src="/js/helpers.js"></script>
   <script src="/js/tasks.js"></script>
   <script src="/js/lists.js"></script>
   <script src="/js/users.js"></script>
+  <script type="text/javascript" src="/js/trix-core-1.3.1.js"></script>
 
   <title>Ombord</title>
 </head>
