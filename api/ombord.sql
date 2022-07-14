@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `lists`;
 CREATE TABLE `lists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(250) CHARACTER SET utf8mb4 NOT NULL DEFAULT '',
-  `description` longtext CHARACTER SET utf8mb4,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `tasks_order` text CHARACTER SET utf8mb4,
   `is_deleted` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -71,7 +71,7 @@ CREATE TABLE `projects` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
   `title` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
-  `description` longtext CHARACTER SET utf8mb4,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `is_template` tinyint(1) DEFAULT '0',
   `is_deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
@@ -87,7 +87,7 @@ DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT '',
-  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `is_completed` tinyint(1) DEFAULT '0',
   `parent_id` int(11) DEFAULT '0' COMMENT 'For subtasks, set this to its parent task. Else set it to 0.',
   `is_deleted` int(11) DEFAULT '0',
@@ -156,7 +156,7 @@ CREATE TABLE `users` (
   `lastname` varchar(20) DEFAULT NULL,
   `email` varchar(250) DEFAULT NULL,
   `title` varchar(250) DEFAULT NULL,
-  `description` longtext,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   `phone_work` varchar(12) DEFAULT NULL,
   `phone_private` varchar(12) DEFAULT NULL,
   `img` varchar(255) DEFAULT NULL,
