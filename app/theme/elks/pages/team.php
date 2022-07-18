@@ -18,8 +18,8 @@ ui__view_fragment("head.php", ['breadcrumbs'=>ui__get_breadcrumbs("team")]);
     else:
       ui__view_fragment("team-all.php", $people);
     endif;?>
-
   </div>
 </div>
 
+<?php if(isset($user)) ui__view_module("users", "modal-edit-user.php",$user); ?>
 <?php ui__view_fragment("foot.php"); ?>

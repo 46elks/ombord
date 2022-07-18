@@ -70,3 +70,52 @@ li.current-user a{
   color: #fff;
   border-radius: 5px;
 }
+
+/* Single view */
+.user{}
+.user header{
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.user footer{
+  /*text-align: center;*/
+  margin-top: 4rem;
+}
+.user__img{
+  object-fit: cover;
+  height: 210px;
+  width: 210px;
+  border-radius: 99999px;
+  position: relative;
+  margin: 0 auto;
+  display: block;
+  padding: 7px;
+  background-color: #fff;
+  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+}
+.user__description{
+  font-size: 1.1rem;
+}
+.user__name{
+  text-align: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.user__title{
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+.user__contact{
+
+}
+.user__phone,
+.user__email{
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  text-transform: lowercase;
+  background-color: #eee;
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-right: 5px;
+}

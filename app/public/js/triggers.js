@@ -47,7 +47,6 @@ if(listWrapper){
         // Render list to DOM
         renderList(data, listTemplate, parentElement);
       });
-
     } else if (e.target.href){
       window.location = e.target.href;
     }
@@ -102,8 +101,9 @@ if(formUpdateUser){
     app.log("Form for updating a user was trigged");
     e.preventDefault();
     submitForm(formUpdateUser,function(data){
-      let statusMessage = document.querySelector('.form-message');
-      if(statusMessage) statusMessage.innerHTML = "Användare uppdaterad";
+      let userElement = document.getElementById('user-'+data.user_id);
+      setUserData(data,userElement);
+      closeModal("modal-user-update");
     });
   });
 }

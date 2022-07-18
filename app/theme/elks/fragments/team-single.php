@@ -1,47 +1,37 @@
-<?php $user = $data; ?>
-<?php ui__view_module("users", "contact-card.php", $user); ?>
-<p class="preamble"><?=escape_html($user['description']);?></p>
+<?php 
+  $user = $data;
+  $id     = (isset($user['id'])) ? $user['id'] : "";
+  $name   = (isset($user['firstname'])) ? $user['firstname']." " : "";
+  $name  .= (isset($user['lastname'])) ? $user['lastname'] : "";
+  $title  = (isset($user['title'])) ? $user['title'] : "";
+  $phone  = (isset($user['phone_work'])) ? $user['phone_work'] : "";
+  $email  = (isset($user['email'])) ? $user['email'] : "";
+  $description = (isset($user['description'])) ? $user['description'] : "";
 
-<?php if($user['id'] == get_user_id()): ?>
+?>
 
-  <details>
-    <summary>Profilinställningar</summary>
-    <section>
-      <header>
-        <h2>Profilinställningar</h2>
-      </header>
+<div id="user-<?=$id;?>" class="user">
+  <header>
+    <img src="<?=$user['img'];?>" alt="" class="js-user-image user__img">
+    <h1 class="user__name js-user-name"><?=$name;?></h1>
+    <p class="preamble user__title js-user-title"><?=$title;?></p>
 
-      <form method="post" action="" class="js-form" id="form-update-user">
-        <label for="img">Profilbild</label>
-        <input type="text" id="img" name="img" placeholder="URL till bild" value="<?=htmlentities($user['img']);?>">
-        <br>
-        <label for="firstname">Förnamn</label>
-        <input type="text" id="firstname" name="firstname" placeholder="Förnamn" value="<?=htmlentities($user['firstname']);?>">
-        <br>
-        <label for="lastname">Efternamn</label>
-        <input type="text" id="lastname" name="lastname" placeholder="Efternamn" value="<?=htmlentities($user['lastname']);?>">
-        <br>
-        <label for="title">Titel</label>
-        <input type="text" id="title" name="title" placeholder="Titel" value="<?=htmlentities($user['title']);?>">
-        <br>
-        <label for="email">E-postadress</label>
-        <input type="text" id="email" name="email" placeholder="E-postadress" value="<?=htmlentities($user['email']);?>">
-        <br>
-        <label for="phone">Telefonnummer</label>
-        <input type="text" id="phone" name="phone_work" placeholder="Telefonnummer" value="<?=$user['phone_work'];?>">
-        <br>
-        <label for="password">Lösenord</label>
-        <input type="password" id="password" name="password" value="">
-        <br>
-        <label for="description">Beskrivning</label>
-        <textarea name="description" id="description" cols="30" rows="10"><?=htmlentities($user['description']);?></textarea>
-        <br>
-        <input type="hidden" name="_action" value="update_user">
-        <input type="hidden" name="user_id" value="<?=htmlentities(get_user_id());?>">
-        <button type="submit" class="btn">Spara</button>
-      </form>
-      <p class="form-message"></p>
-    </section>
-  </details>
+    <div class="user__contact">
+      <?php if($phone) :?>
+        <a href="tel:<?=$phone;?>" class="user__phone js-user-phone"><?=$phone;?></a>
+      <?php endif;?>
+      <?php if($email) :?>
+        <a href="mailto:<?=$email;?>" class="user__email js-user-email"><?=$email;?></a>
+      <?php endif;?>
+    </div>
+  </header>
 
-  <?php endif; ?>
+  <div class="user__description js-user-description">
+    <?=$description;?>
+  </div>
+  <footer>
+    <?php if($id == get_user_id()): ?>
+      <a href="javascript:void(0);" onClick="openModal('modal-user-update');" class="btn">Redigera profil</a>
+    <?php endif; ?>
+  </footer>
+</div>
