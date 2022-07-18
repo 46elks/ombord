@@ -56,3 +56,16 @@
 .task__menu-content ul{
   padding: 0;
 }
+
+/* Single task page */
+#single-task{}
+
+#single-task .checkbox__desc{
+  margin-top: -12px;
+}
+
+#single-task .task-description{
+  font-size: 1.2rem;
+  padding-left: 49px; 
+  margin: 20px auto 50px;
+}

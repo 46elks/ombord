@@ -161,9 +161,13 @@ function editTask(task_id, callback = null){
 
   // Get fresh data from database to ensure it's up to date
   getTask(task_id,true,function(data){
-    editModal.querySelector('#title').value = data.title;
-    editModal.querySelector('#description').value = data.description;
-    editModal.querySelector('#task_id').value = data.id;
+    editModal.querySelector("[name='title']").value = data.title;
+    editModal.querySelector("[name='description']").value = data.description;
+    editModal.querySelector("[name='task_id']").value = data.id;
+
+    let wysiwyg = editModal.querySelector("trix-editor");
+    trixRefresh(wysiwyg, data.description); 
+    
   });
 
   openModal('modal-task-update');
