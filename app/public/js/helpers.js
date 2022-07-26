@@ -44,10 +44,15 @@ function apiPost(data, callback = null){
   app.log(data);
   method = "POST";
 
+  let decodedData = {};
+  Object.keys(data).map(function(objectKey, index) {
+    decodedData[objectKey] = encodeURIComponent(data[objectKey]);
+  });
+
   let xhr = new XMLHttpRequest();
   xhr.open(method, app.apiBaseURL, true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  xhr.send(JSON.stringify(data));
+  xhr.send(JSON.stringify(decodedData));
   app.log("API request sent");
 
   // This will be called after the response is received

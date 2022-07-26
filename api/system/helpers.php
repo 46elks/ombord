@@ -43,7 +43,14 @@ SQL;
   // Get the data within the received request
   function api__request_data() {
     parse_str(urldecode(file_get_contents("php://input")), $data);
-    return $data;
+
+    // Decode any URL encoded values
+    $decoded_data = [];
+    foreach ($data as $key => $value) {
+      $decoded_data[$key] = urldecode($value);
+    }
+
+    return $decoded_data;
   }
 
   // Check if user is correctly authenticathed
