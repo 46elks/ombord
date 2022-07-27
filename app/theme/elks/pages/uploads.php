@@ -11,4 +11,5 @@ if(!file_exists($path)) {
   header('X-Sendfile: '.$path);
   header('Content-type: image/jpeg');
   header('Content-Disposition: inline; filename="'.$filename.'"');
+  readfile($path);
 }
