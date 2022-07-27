@@ -156,3 +156,13 @@ $( function() {
     cursor: "grabbing"
   });
 } );
+
+
+// ============================================
+// Listen for attached files in the trix editor
+// ============================================
+addEventListener("trix-attachment-add", function(event) {
+  if (event.attachment.file) {
+    trix__uploadFileAttachment(event.attachment)
+  }
+})

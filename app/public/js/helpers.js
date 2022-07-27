@@ -119,3 +119,62 @@ function trixRefresh(trix, content){
   trix.editor.insertHTML(content);
 
 }
+
+// ============================================================
+// Store attached files provided via the trix editor
+// Original code from https://trix-editor.org/js/attachments.js
+// ============================================================
+
+function trix__uploadFileAttachment(attachment) {
+  trix__uploadFile(attachment.file, setProgress, setAttributes)
+
+  function setProgress(progress) {
+    attachment.setUploadProgress(progress)
+  }
+
+  function setAttributes(attributes) {
+    attachment.setAttributes(attributes)
+  }
+}
+
+function trix__uploadFile(file, progressCallback, successCallback) {
+
+  var formData = new FormData();
+  formData.append('files[]', file);
+  formData.append("_action", "UPLOAD_ATTACHMENT");
+
+  let xhr   = new XMLHttpRequest()
+  let url   = window.location;
+  let HOST  = url.protocol+"//"+url.host+"/uploader";
+
+  app.log(formData);
+
+  xhr.open("POST", HOST, true)
+  xhr.setRequestHeader("enctype", "multipart/form-data");
+
+  xhr.upload.addEventListener("progress", function(event) {
+    var progress = event.loaded / event.total * 100
+    progressCallback(progress)
+  })
+
+  xhr.addEventListener("load", function(event) {
+    if (xhr.status == 200) {
+
+      app.log(xhr.responseText);
+      let data = JSON.parse(xhr.responseText);
+      var attributes = {
+        url: data.url,
+        href: data.href,
+      }
+      app.log(data);
+      successCallback(attributes)
+
+    } else {
+      let errorMsg = `Error ${xhr.status} : ${xhr.statusText} \n${JSON.parse(xhr.responseText)}`;
+      app.log(errorMsg);
+      alert(errorMsg);
+    }
+  })
+
+  xhr.send(formData)
+}

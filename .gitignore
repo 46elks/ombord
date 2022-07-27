@@ -3,3 +3,4 @@
 /app/config.php
 
 /*/logs/*.log
+/app/uploads/

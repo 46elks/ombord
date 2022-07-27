@@ -22,6 +22,15 @@ switch ($_SERVER["REQUEST_URI"]) {
   case '/form-submit/':
     ui__view_page("form-submit.php");
     break;
+
+  case '/uploader':
+  case '/uploader/':
+    ui__view_page("uploader.php");
+    break;
+
+  case (bool)preg_match('/^(.*?)\/uploads\/(.*?)$/', $request):
+    ui__view_page("uploads.php");
+    break;
   
   // Single list
   case (bool)preg_match('/^(.*?)\/lists\/([0-9]*)$/', $request):
