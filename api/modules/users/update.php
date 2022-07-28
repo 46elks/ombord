@@ -44,6 +44,12 @@
       
       if(!in_array($key, $allowed_fields)) continue;
       
+      if($key === "phone_private" or $key === "phone_work"):
+        // Remove any blank space and hyphens from the phone number
+        $value = str_replace(" ", "", $value);
+        $value = str_replace("-", "", $value);
+      endif;
+
       $set .= "$key = :{$key},";
       $params[$key] = $value;
 
