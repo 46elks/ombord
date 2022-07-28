@@ -24,23 +24,24 @@
     foreach ($fields as $key => $value) :
       
       if(!in_array($key, $allowed_fields)) continue;
-      
-      $set .= "$key = :{$key},";
-      $params[$key] = $value;
 
       if($key === 'is_completed'):
         $set .= "completed_at = :completed_at,";
-        if($value == 1):
+        if($value === 1 || $value === "1" || $value === true || $value === "true") :
           // The task is marked as completed.
           // Set a timestamp for when is was completed.
           $params['completed_at'] = date('Y-m-d H:i:s');
+          $value = "1";
         else:
           // The task is marked a uncompleted.
           // Clear the timestamp får when it was completed.
           $params['completed_at'] = null;
+          $value = "0";
         endif;
       endif;
 
+      $set .= "$key = :{$key},";
+      $params[$key] = $value;
     endforeach;
 
     // Remove last comma to prevent SQL error
