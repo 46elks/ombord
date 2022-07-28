@@ -6,7 +6,8 @@
   $lastname     = (isset($user['lastname'])) ? htmlentities($user['lastname']) : "";
   $title        = (isset($user['title'])) ? htmlentities($user['title']) : "";
   $email        = (isset($user['email'])) ? htmlentities($user['email']) : "";
-  $phone        = (isset($user['phone_work'])) ? htmlentities($user['phone_work']) : "";
+  $phone_work     = (isset($user['phone_work'])) ? htmlentities($user['phone_work']) : "";
+  $phone_private  = (isset($user['phone_private'])) ? htmlentities($user['phone_private']) : "";
 ?>
 
 <form method="post" action="" class="js-form" id="form-update-user">
@@ -28,8 +29,11 @@
   <label for="email">E-postadress</label>
   <input type="text" id="email" name="email" placeholder="E-postadress" value="<?=$email;?>">
   <br>
-  <label for="phone">Telefonnummer</label>
-  <input type="text" id="phone" name="phone_work" placeholder="Telefonnummer" value="<?=$phone;?>">
+  <label for="phone_work">Telefonnummer (jobb)</label>
+  <input type="text" id="phone_work" name="phone_work" placeholder="Jobbnummer" value="<?=$phone_work;?>">
+  <br>
+  <label for="phone_private">Telefonnummer (privat)</label>
+  <input type="text" id="phone_private" name="phone_private" placeholder="Privat nummer" value="<?=$phone_private;?>">
   <br>
   <label for="password">Lösenord</label>
   <input type="password" id="password" name="password" value="">
