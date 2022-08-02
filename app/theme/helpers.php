@@ -320,6 +320,24 @@
    ------------------------------- */
 
   /**
+   * Get all users that are assigned a specific project
+   * 
+   * @param $project_id (int)
+   * 
+   * @return array
+   * 
+   */
+
+  function ui__get_project_users($project_id) {
+    $data = ui__api_get("/projects/users", ["project_id" => $project_id]);
+    return $data;
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
    * Get lists
    * 
    * @param $list_id (int)

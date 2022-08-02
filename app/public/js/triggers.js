@@ -71,6 +71,24 @@ if (formAddProject) {
   });
 }
 
+// =======================
+// Trigger: Update project
+// =======================
+let formProjectUpdate = document.getElementById('form-edit-project');
+if(formProjectUpdate){
+
+  formProjectUpdate.addEventListener("submit",function(e){
+    app.log("Form submitted");
+    e.preventDefault();
+
+    // Submit the form
+    submitForm(formProjectUpdate,function(data){
+      app.log(data);
+      editProjectCallback(data)
+    });
+  });
+}
+
 // =================
 // Trigger: Add user
 // =================

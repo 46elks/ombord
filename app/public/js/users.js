@@ -46,3 +46,32 @@ function setUserData(data, element){
   return element;
 
 }
+
+// Toggle between adding and removing a project to/from a user
+function toggleUserProject(userId, projectId, state){
+  (state) ? addUserProject(userId, projectId) : deleteUserProject(userId, projectId);
+}
+
+// Add a project to a user
+function addUserProject(userId, projectId){
+  let data = {
+    _action: "ADD_USER_PROJECT",
+    user_id: userId,
+    project_id: projectId
+  }
+  apiPost(data,function(data){
+    app.log("Project "+projectId+" was added to user "+userId);
+  });
+}
+
+// Remove a project from a user
+function deleteUserProject(userId, projectId){
+  let data = {
+    _action: "DELETE_USER_PROJECT",
+    user_id: userId,
+    project_id: projectId
+  }
+  apiPost(data,function(data){
+    app.log("Project "+projectId+" was removed from user "+userId);
+  });
+}

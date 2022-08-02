@@ -15,6 +15,7 @@
   <script src="/js/tasks.js"></script>
   <script src="/js/lists.js"></script>
   <script src="/js/users.js"></script>
+  <script src="/js/projects.js"></script>
   <script type="text/javascript" src="/js/trix-core-1.3.1.js"></script>
 
   <title>Ombord</title>

@@ -112,6 +112,17 @@ switch (strtoupper($action)) {
     parse_request($result[0], $result[1]);
     break;
 
+  case 'UPDATE_PROJECT':
+    $result = ui__api_patch("/projects", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
+
+  case 'DELETE_PROJECT':
+    $result = ui__api_delete("/projects", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
+
+
   // USERS
   case 'ADD_USER':
 
@@ -190,6 +201,16 @@ switch (strtoupper($action)) {
   
   case 'UPDATE_USER':
     $result = ui__api_patch("/users", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
+
+  case 'ADD_USER_PROJECT':
+    $result = ui__api_post("/users/projects", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
+  
+  case 'DELETE_USER_PROJECT':
+    $result = ui__api_delete("/users/projects", $data, false, false, true);
     parse_request($result[0], $result[1]);
     break;
 

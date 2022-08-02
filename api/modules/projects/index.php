@@ -1,6 +1,6 @@
 <?php 
 
-header("Access-Control-Allow-Methods: POST,GET,PATCH");
+header("Access-Control-Allow-Methods: POST,GET,PATCH,DELETE");
 
 // Ensure request is authenticated
 api__is_authenticated();
@@ -105,7 +105,18 @@ switch(strtoupper($_SERVER['REQUEST_METHOD'])):
 
     break;
   case "DELETE":
-    api__response(400, $_SERVER['REQUEST_METHOD']." is not yet supported");
+    
+    load_model("projects","delete");
+
+    extract(api__request_data());
+
+    if(empty($project_id)) :
+      debug__log("Unable to remove project due to missing project id");
+      api__response(400, "Missing project id");
+    endif;
+
+    projects__delete($project_id);
+    api__response(200, "Project deleted");
     break;
     
 endswitch;

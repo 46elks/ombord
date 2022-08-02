@@ -1,0 +1,9 @@
+.project__menu{
+  width: auto;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0;
+  margin: 0;
+}

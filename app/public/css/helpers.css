@@ -48,11 +48,15 @@ ul.checkbox-list li{
 }
 
 
+/* Tiny grid system */
 .row{
   display: flex;
   flex-wrap: wrap;
 }
 .row > *{
-  width: 50%;
+  width: 100%;
 }
 
+@media screen and (min-width: 678px) {
+  .row > *{width: 50%;}
+}

@@ -27,3 +27,14 @@ section#login form *{
 #edit-list-form input{
   width: 100%;
 }
+
+#form-edit-project{}
+#form-edit-project textarea,
+#form-edit-project input{
+  width: 100%;
+}
+
+#modal-project-update{}
+#modal-project-update ul.checkbox-list{
+ columns: 100px 2;
+}
