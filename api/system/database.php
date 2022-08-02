@@ -127,3 +127,30 @@ function db__update($sql, $params = []){
   return $affected_rows;
 
 }
+
+
+/**
+ * Delete record from database
+ * 
+ * 
+ * @return int
+ * 
+ */
+
+function db__delete($sql, $params = []){
+
+  $conn   = db__connect();
+  $query  = $conn->prepare($sql);
+
+  if (!$query->execute($params)) :
+    $errors = $query->errorInfo();
+    debug__log("Error while deleting data.. ".json_encode($errors));
+    db__close($conn);
+    api__response(500, "Error while proccessing your request");
+  endif;
+
+  db__close($conn);
+  
+  return true;
+
+}
