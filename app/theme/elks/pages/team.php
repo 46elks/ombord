@@ -6,7 +6,6 @@ if($team_member_id != null):
   $user = ui__get_user($team_member_id);
 else:
   $people = ui__get_users();
-  shuffle($people);
 endif;
 ui__view_fragment("head.php", ['breadcrumbs'=>ui__get_breadcrumbs("team")]);
 ?>
@@ -15,7 +14,7 @@ ui__view_fragment("head.php", ['breadcrumbs'=>ui__get_breadcrumbs("team")]);
   <div class="inner-wrapper">
     <?php if(isset($user)):
       ui__view_fragment("team-single.php", $user);
-    else:
+    elseif(isset($people)):
       ui__view_fragment("team-all.php", $people);
     endif;?>
   </div>

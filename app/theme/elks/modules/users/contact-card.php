@@ -1,19 +1,41 @@
-<?php if(empty($module["img"])) $module["img"] = "/img/user.jpg"; ?>
+<?php 
+  
+  $user           = $module;
+  $img            = (isset($user['img']) && !empty($user['img'])) ? $user['img'] : "/img/user.jpg";
+  $id             = (isset($user['id'])) ? $user['id'] : "";
+  $firstname      = (isset($user['firstname'])) ? ucfirst($user['firstname']) : "&nbsp;";
+  $lastname       = (isset($user['lastname'])) ? ucfirst($user['lastname']) : "&nbsp;";
+  $name           = $firstname ." ".$lastname;
+  $title          = (isset($user['title'])) ? ucfirst($user['title']) : "&nbsp;";
+  $email          = (isset($user['email'])) ? strtolower($user['email']) : "";
+  $phone_work     = (isset($user['phone_work'])) ? strtolower($user['phone_work']) : "";
+  $phone_private  = (isset($user['phone_private'])) ? strtolower($user['phone_private']) : "";
+
+?>
 
 <div class="contact-card">
-  <a href="/team/<?=escape_html($module['id']);?>">
-    <img class="contact-card__img js-user-image" src="<?=escape_html($module["img"]);?>">
+  <a href="/team/<?=$id;?>">
+    <img class="contact-card__img js-user-image" src="<?=$img;?>">
   </a>
-  <h4 class="contact-card__name js-user-name"><?=escape_html($module["firstname"])." ".escape_html($module["lastname"]);?></h4>
-  <p class="contact-card__title js-user-title"><?=escape_html($module["title"]);?></p>
+  <h4 class="contact-card__name js-user-name"><?=$name;?></h4>
+  <p class="contact-card__title js-user-title"><?=$title;?></p>
   <div class="contact-card__contact-info">
     <ul>
       <li>
-        <img class="icon" src="img/paper-plane-solid.svg" width="20"><span class="js-user-email contact-details"><?=escape_html($module["email"]);?></span>
+        <span class="contact-card__label"><span class="icon-envelop"></span> E-post</span>
+        <span class="js-user-email contact-details contact-card__email"><?=$email;?></span>
       </li>
-      <li>
-        <img class="icon" src="img/phone-solid.svg" width="20"><span class="js-user-phone contact-details"><?=escape_html($module["phone_work"]);?></span>
-      </li>
+        <li>
+          <span class="contact-card__label"><span class="icon-phone"></span> Jobb</span>
+          <span class="js-user-phone contact-details contact-card__phone"><?=$phone_work;?></span>
+        </li>
+        <li>
+          <span class="contact-card__label"><span class="icon-phone"></span> Privat</span>
+          <span class="js-user-phone contact-details contact-card__phone"><?=$phone_private;?></span>
+        </li>
     </ul>
-  </div>  
+  </div>
+  <footer>
+    <a href="/team/<?=$id;?>" class="btn btn--sm btn-inverse--purple">Mer om <?=$firstname;?> <span class="icon-arrow-right2"></span></a>
+  </footer> 
 </div>

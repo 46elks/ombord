@@ -5,6 +5,10 @@
   --dark-grey: #303450;
   --medium-red: #f45959;
 
+  --light-purple: #F4F4FF;
+  --medium-purple: #dbdbff;
+  --dark-purple: #656da9;
+
   --link-color: var(--light-blue);
   --link-hover-color: var(--medium-blue);
 }

@@ -6,6 +6,8 @@
   margin: 0 auto;
 }
 .outer-wrapper--sm{max-width: 540px;}
+.outer-wrapper--lg{max-width: 900px;}
+
 .inner-wrapper{padding: 1rem;}
 
 ul.inline-list{
@@ -47,6 +49,10 @@ ul.checkbox-list li{
   right: 0; 
 }
 
+/* TEXT */
+.text--left{text-align: left;}
+.text--right{text-align: right;}
+.text--center{text-align: center;}
 
 /* Tiny grid system */
 .row{

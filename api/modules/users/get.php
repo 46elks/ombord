@@ -38,6 +38,7 @@
           u.is_admin
         FROM users u
         WHERE u.is_deleted = 0 $sql_where
+        ORDER BY firstname, lastname ASC 
         $sql_limit
         ;
 SQL;

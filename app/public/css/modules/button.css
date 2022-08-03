@@ -7,6 +7,7 @@
   outline: none;
   border: 1px solid;
   cursor: pointer;
+  line-height: 1;
 }
 
 .btn{
@@ -14,20 +15,38 @@
   border-color: var(--link-color);
   color: #fff;
 }
+.btn:hover{
+  background-color: var(--link-hover-color);
+  text-decoration: none;
+}
 
 .btn-inverse{
   border-color: var(--medium-grey);
   background-color: #fff;
   color: var(--medium-grey);
 }
+  .btn-inverse:hover{
+    border-color: var(--medium-grey);
+    background-color: var(--medium-grey);
+    color: var(--dark-grey);
+  }
 
-.btn:hover{
-  background-color: var(--link-hover-color);
+.btn-inverse--purple{
+  border-color: var(--dark-purple);
+  background-color: transparent;
+  color: var(--dark-purple);
 }
+  .btn-inverse--purple:hover{
+    border-color: var(--dark-purple);
+    background-color: var(--dark-purple);
+    color: var(--light-purple);
+  }
+
+
 
 .btn--sm{
   padding: 0.2rem 0.5rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .btn--warning:not(a){
