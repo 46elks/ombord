@@ -1,9 +1,10 @@
 <?php $people = $data; ?>
 
-<section id="header">
-  <header class="pos-rel">
-    <h2>Dina kollegor</h2>
-    <div class="list__nav">
+<section class="section--page-header">
+  <header>
+    <h1>Dina kollegor</h1>
+    <p class="preamble">Det här är dina nya kollegor som du ska lära känna, vi finns alla här för frågor - Inga frågor är för små! Vi vill att du ska trivas hos oss.</p>
+    <div class="section__nav">
       <ul class="inline-list">
         <?php if(is_admin()): ?>
         <li><a href="/new-user">+ Ny älg</a></li>
@@ -11,7 +12,6 @@
       </ul>
     </div>
   </header>
-  <p class="preamble">Det här är dina nya kollegor som du ska lära känna, vi finns alla här för frågor - Inga frågor är för små! Vi vill att du ska trivas hos oss.</p>
 
 </section>
 

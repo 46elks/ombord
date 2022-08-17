@@ -4,8 +4,14 @@
   // Breadcrumb navigation for the dashboard
   // =======================================
 
-  $breadcrumbs = [
-    ['title' => "Ombord"]
-  ];
+  if(is_admin()) :
+    $breadcrumbs = [
+      ['title' => "Ombord"]
+    ];
+  else:
+    $breadcrumbs = [
+      ['title' => ""]
+    ];
+  endif;
 
  ?>

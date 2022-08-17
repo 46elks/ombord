@@ -6,23 +6,20 @@
 
 ?>
 
-<section id="list-<?=$id;?>" class="js-list-wrapper" data-id="<?=$id;?>">
+<section id="list-<?=$id;?>" class="js-list-wrapper section--list" data-id="<?=$id;?>">
 
   <header class="list__header">
-    <h2 class="js-list-title list__title"><?=$title;?></h2>
+    <h2 class="js-list-title list__title"><a href="<?=ui__get_list_url($id);?>"><?=$title;?></a></h2>
     <div class="list__nav">
       <ul class="inline-list">
-        <?php if(!isset($_GET['list_id'])): ?>
-        <li><span class="list__show-more"><a href="<?=ui__get_list_url($id);?>">Visa mer</a></span></li>
-        <?php endif; ?>
         <?php if(is_admin()): ?>
-          <li><a href="javascript:void(0);" onClick="editList(<?=$id;?>, editListCallback);" class="js-edit-list-btn">Redigera</a></li>
-          <li><a href="javascript:void(0);" onClick="deleteList(<?=$id;?>, deleteListCallback);" class="js-delete-list-btn btn--warning">Ta bort</a></li>
+          <li><a href="javascript:void(0);" onClick="editList(<?=$id;?>, editListCallback);" class="js-edit-list-btn"><span class="icon-pencil"></span></a></li>
+          <li><a href="javascript:void(0);" onClick="deleteList(<?=$id;?>, deleteListCallback);" class="js-delete-list-btn btn--warning"><span class="icon-bin"></span></a></li>
         <?php endif; ?>
       </ul>
     </div>
+    <p class="js-list-description list__description preamble"><?=$description;?></p>
   </header>
-  <p class="js-list-description list__description"><?=$description;?></p>
 
   <?php ui__view_module("tasks", "list-view.php", $module);?>
   

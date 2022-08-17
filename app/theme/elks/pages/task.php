@@ -11,32 +11,28 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
 
 <div class="outer-wrapper">
   <div class="inner-wrapper">
+    <section id="task-<?=$task['id'];?>" class="task__section js-task-wrapper task-wrapper" data-id="<?=$task['id'];?>">
+      <header>
+        <label class="checkbox-square">
+          <h1 class="checkbox__desc task__title js-task-title"><?=$task['title'];?></h1>
+          <input type="checkbox" <?=$is_completed;?> onclick="completeTask(<?=$task['id'];?>, this.checked, null);" class="js-complete-task js-task-status" id="<?=$task['id'];?>">
+          <span class="checkmark"></span>
+        </label>
+      </header>
 
-      <section id="single-task">
-        <div id="task-<?=$task['id'];?>" class="js-task-wrapper task-wrapper" data-id="<?=$task['id'];?>">
-          <header>
-            <label class="checkbox-square">
-              <h1 class="checkbox__desc task-title js-task-title"><?=$task['title'];?></h1>
-              <input type="checkbox" <?=$is_completed;?> onclick="completeTask(<?=$task['id'];?>, this.checked, null);" class="js-complete-task js-task-status" id="<?=$task['id'];?>">
-              <span class="checkmark"></span>
-            </label>
-
-          </header>
-
-          <div style="" class="trix-content content task-description js-task-description">
-            <div class="inner-wrapper">
-            <?=$task['description'];?>
-            </div>
-          </div>
-
-          <?php if(is_admin()):?>
-            <button class="js-edit-task btn" onclick="editTask(<?=$task['id'];?>,editTaskCallback);" >Redigera</button>
-            <button class="js-delete-task btn-inverse" onclick="deleteTask(<?=$task['id'];?>,deleteTaskCallback);">Ta bort</button>
-            <br>
-          <?php endif;?>
+      <div style="" class="trix-content content task__description js-task-description">
+        <div class="inner-wrapper">
+          <?=$task['description'];?>
         </div>
-      </section>
-    </div>
+      </div>
+
+      <?php if(is_admin()):?>
+        <button class="js-edit-task btn" onclick="editTask(<?=$task['id'];?>,editTaskCallback);" >Redigera</button>
+        <button class="js-delete-task btn-inverse" onclick="deleteTask(<?=$task['id'];?>,deleteTaskCallback);">Ta bort</button>
+        <br>
+      <?php endif;?>
+    </section>
   </div>
+</div>
 
 <?php ui__view_fragment("foot.php"); ?>

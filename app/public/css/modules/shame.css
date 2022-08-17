@@ -38,3 +38,12 @@ section#login form *{
 #modal-project-update ul.checkbox-list{
  columns: 100px 2;
 }
+
+/* Dashboard  */
+.dashboard__section{}
+.dashboard__section section > ul{
+  padding-left: 1rem;
+  list-style: circle;
+}
+.dashboard__section-users{}
+.dashboard__section-projects{}

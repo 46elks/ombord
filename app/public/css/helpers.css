@@ -54,6 +54,12 @@ ul.checkbox-list li{
 .text--right{text-align: right;}
 .text--center{text-align: center;}
 
+.preamble{
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
 /* Tiny grid system */
 .row{
   display: flex;

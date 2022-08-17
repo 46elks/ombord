@@ -2,15 +2,13 @@
   position: relative;
   margin-top: 4rem;
 }
-.list__description{
-  font-style: italic;
-  color:  #999;
-  margin-top: 0;
-  margin-bottom: 1rem;
-}
+.list__description{}
+
+.list__title a,
 .list__title {
   line-height: 1;
   margin-bottom: 0;
+  color: var(--text-color);
 }
 .list__nav{
   width: auto;
@@ -21,3 +19,7 @@
   padding: 0;
   margin: 0;
 }
+
+/* Single list page */
+.section--single-list{}
+.section--single-list .list__description{}

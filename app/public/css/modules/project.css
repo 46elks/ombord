@@ -1,3 +1,12 @@
+.project__section{}
+
+.project__section > header{
+  border-bottom:  none;
+  margin-bottom: 6rem;
+}
+
+.project__title{}
+
 .project__menu{
   width: auto;
   display: inline-block;

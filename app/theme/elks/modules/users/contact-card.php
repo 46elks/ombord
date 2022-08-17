@@ -17,7 +17,7 @@
   <a href="/team/<?=$id;?>">
     <img class="contact-card__img js-user-image" src="<?=$img;?>">
   </a>
-  <h4 class="contact-card__name js-user-name"><?=$name;?></h4>
+  <p class="contact-card__name js-user-name"><?=$name;?></p>
   <p class="contact-card__title js-user-title"><?=$title;?></p>
   <div class="contact-card__contact-info">
     <ul>

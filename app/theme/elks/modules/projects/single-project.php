@@ -8,11 +8,11 @@
 
 ?>
 
-<section id="project-<?=$id;?>">
+<section id="project-<?=$id;?>" class="project__section">
 
-  <header class="pos-rel">
-    <h1 class="js-project-title"><?=$project['title'];?></h1>
-    <p class="js-project-description preamble"><?=$description;?></p>
+  <header>
+    <h1 class="js-project-title project__title"><?=$project['title'];?></h1>
+    <p class="js-project-description project__title preamble"><?=$description;?></p>
     <nav class="project__menu">
         <ul class="inline-list">
           <?php if(is_admin()): ?>

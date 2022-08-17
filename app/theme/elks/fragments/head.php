@@ -37,7 +37,10 @@
           <nav class="global-nav">
             <ul class="inline-list">
               <?php if(is_logged_in()): ?>
-                <li class="nav-li"><a class="nav-a" href="/logout">Logga ut</a></li>
+                <?php if(is_admin()): ?>
+                <li class="nav-li"><a class="nav-a" title="Team" href="/team">Team</a></li>
+                <?php endif; ?>
+                <li class="nav-li"><a class="nav-a" title="Logga ut" href="/logout">Logga ut</a></li>
               <?php endif; ?>
             </ul>
           </nav>

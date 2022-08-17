@@ -7,12 +7,18 @@
   margin-bottom: 10px;
 }
 
-.task__title{}
+.task__title:not(.task__section .task__title){
+  font-size: 1.3rem;
+  font-weight: 300;
+}
 .task__title:hover{}
 
 .task__checkbox{
   margin-left: -20px;
   margin-right: 5px;
+  transform: scale(1.4);
+  position: relative;
+  top: -3px;
 }
 
 .task__is_completed .task__title{
@@ -38,6 +44,7 @@
   padding: 0;
   margin: 0;
 }
+
 .task__menu-trigger{
   cursor: pointer;
   padding: 3px 5px;
@@ -58,14 +65,21 @@
 }
 
 /* Single task page */
-#single-task{}
+section.task__section{}
 
-#single-task .checkbox__desc{
-  margin-top: -12px;
+section.task__section label.checkbox-square .checkbox__desc{
+  margin-top: -15px;
 }
 
-#single-task .task-description{
-  font-size: 1.2rem;
+section.task__section .task__description{
+  font-size: 1.3rem;
+  font-weight: 300;
   padding-left: 49px; 
   margin: 20px auto 50px;
+}
+section.task__section > header{
+  border: none;
+}
+section.task__section .task__title{
+  line-height: 1.2;
 }

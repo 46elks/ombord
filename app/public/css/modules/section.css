@@ -3,7 +3,7 @@ section > header{
   margin-top: 4rem;
   margin-bottom: 1rem;
   border-bottom: 1px solid var(--medium-grey);
-  padding-bottom: 1rem;
+  position: relative;
 }
 section > header h1,
 section > header h2,
@@ -11,4 +11,24 @@ section > header h3,
 section > header h4,
 section > header h5{
   margin: 0;
+}
+
+.section__nav{
+  width: auto;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.section--page-header .section__nav{
+  bottom: initial;
+  top: 0;
+}
+
+.section--page-header{}
+.section--page-header > header{
+  border-bottom:  none;
 }
