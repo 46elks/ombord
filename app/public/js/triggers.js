@@ -2,7 +2,10 @@
 // Trigger: Add lists
 // Trigger: Add tasks
 // ==================
-let listWrapper = document.getElementById('lists');
+
+let listWrapper = document.getElementById('lists'); // Multiple lists page
+if(!listWrapper) listWrapper = document.querySelector('.js-list-wrapper'); // Single list page
+
 if(listWrapper){
   listWrapper.addEventListener("click",function(e){
     e.preventDefault();
