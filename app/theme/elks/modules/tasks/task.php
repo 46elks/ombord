@@ -18,8 +18,8 @@
     <nav class="task__menu">
       <ul class="inline-list">
         <?php if(is_admin()): ?>
-          <li><a href="javascript:void(0);" onClick="editTask(<?=$id;?>, editTaskCallback);" class="js-edit-list-btn"><span class="icon-pencil"></span></a></li>
-          <li><a href="javascript:void(0);" onClick="deleteTask(<?=$id;?>, deleteTaskCallback);" class="js-delete-list-btn btn--warning"><span class="icon-bin"></span></a></li>
+          <li><a href="javascript:void(0);" onClick="editTask(<?=$id;?>, editTaskCallback);" class="js-edit-task-btn"><span class="icon-pencil"></span></a></li>
+          <li><a href="javascript:void(0);" onClick="deleteTask(<?=$id;?>, deleteTaskCallback);" class="js-delete-task-btn btn--warning"><span class="icon-bin"></span></a></li>
         <?php endif; ?>
       </ul>
     </nav>

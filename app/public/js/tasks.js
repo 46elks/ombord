@@ -148,8 +148,21 @@ function renderTask(data, taskTemplate, parentElement, callback = null){
   if(parentElement){
     parentElement.append(taskElement);
   }
-  
+
   taskElement = document.getElementById("task-"+data.id);
+
+  // edit btn
+  let editBtn = taskElement.querySelector(".js-edit-task-btn");
+  if(editBtn && data.id){
+    editBtn.onclick = function(){editTask(data.id, editTaskCallback);}
+  }
+
+  // delete btn
+  let deleteBtn = taskElement.querySelector(".js-delete-task-btn");
+  if(deleteBtn && data.id){
+    deleteBtn.onclick = function(){deleteTask(data.id, deleteTaskCallback);}
+  }
+
   if(callback !== null) callback(taskElement);
   
 }
