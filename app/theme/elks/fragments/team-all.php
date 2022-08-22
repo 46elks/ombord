@@ -3,7 +3,7 @@
 <section class="section--page-header">
   <header>
     <h1>Dina kollegor</h1>
-    <p class="preamble">Det här är dina nya kollegor som du ska lära känna, vi finns alla här för frågor - Inga frågor är för små! Vi vill att du ska trivas hos oss.</p>
+    <p class="preamble">Det här är dina nya kollegor som du kommer lära känna, vi finns alla här för frågor - Inga frågor är för små! Vi vill att du ska trivas hos oss.</p>
     <div class="section__nav">
       <ul class="inline-list">
         <?php if(is_admin()): ?>
