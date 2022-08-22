@@ -192,9 +192,11 @@ addEventListener("trix-attachment-add", function(event) {
 // Open all links in a new window, in the trix editor
 // ==================================================
 let trixContent = document.querySelector(".trix-content");
-trixContent.addEventListener("click", function(event) {
-  var el = event.target
-  if (el.tagName === "A" && !el.isContentEditable && el.host !== window.location.host) {
-    el.setAttribute("target", "_blank")
-  }
-}, true)
+if(trixContent){
+  trixContent.addEventListener("click", function(event) {
+    var el = event.target
+    if (el.tagName === "A" && !el.isContentEditable) {
+      el.setAttribute("target", "_blank")
+    }
+  }, true)
+}
