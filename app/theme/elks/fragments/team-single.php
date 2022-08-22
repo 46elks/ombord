@@ -41,7 +41,7 @@
     
   </header>
 
-  <div class="user__description js-user-description">
+  <div class="trix-content user__description js-user-description">
     <?=$description;?>
   </div>
   <footer>

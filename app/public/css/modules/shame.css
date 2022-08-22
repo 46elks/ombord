@@ -47,3 +47,13 @@ section#login form *{
 }
 .dashboard__section-users{}
 .dashboard__section-projects{}
+
+/* TRIX EDITOR */
+.trix-content ul,
+.trix-content ol{
+  margin-block-start: 1.1rem;
+  margin-block-end: 1.5rem;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 1.5rem;
+}
