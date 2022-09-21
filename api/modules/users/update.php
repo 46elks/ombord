@@ -17,7 +17,7 @@
     $params       = ['user_id' => $user_id];
 
     if(isset($fields['password']) && !empty($fields['password'])):
-      $fields['password_hash'] = get_hashed_password($fields['password']);
+      $fields['password_hash'] = generate_hashed_password($fields['password']);
       unset($fields['password']);
     endif;
 
@@ -33,10 +33,10 @@
       'img',
       'is_admin',
       'password_hash',
+      'is_activated',
 
       // 'api_user',
       // 'api_secret',
-      // 'password_hash',
       // 'password_salt',
     ];
 
@@ -60,7 +60,7 @@
 
     if(empty($set)) :
       debug__log("Unable to update user. No valid data provided.");
-      api__response(400, "No vaild data provided"); 
+      api__response(400, "No valid data provided"); 
     endif;
 
     $sql =<<< SQL

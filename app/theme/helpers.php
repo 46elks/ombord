@@ -62,6 +62,7 @@
     $user_obj = ui__get_user($user_obj['id']);
 
     $_SESSION["user"]["name"] = $user_obj['firstname'];
+    $_SESSION["user"]["email"] = $user_obj['email'];
     $_SESSION["user"]["img"] = $user_obj['img'];
     $_SESSION["user"]["is_admin"] = $user_obj['is_admin'];
   }

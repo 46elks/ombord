@@ -1,7 +1,7 @@
 # ************************************************************
 # Host: localhost (MySQL 5.7.32)
 # Database: ombord
-# Generation Time: 2022-06-22 08:46:36 +0000
+# Generation Time: 2022-09-20 15:45:26 +0000
 # ************************************************************
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -166,6 +166,7 @@ CREATE TABLE `users` (
   `api_secret` varchar(255) DEFAULT NULL,
   `password_hash` varchar(250) NOT NULL DEFAULT '',
   `password_salt` varchar(255) DEFAULT NULL,
+  `is_activated` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

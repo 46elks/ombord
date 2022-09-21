@@ -53,6 +53,11 @@ case '/api/v1/users/projects':
   case '/v1/app/login':
     load_model("app", "login");
     break;
+
+  case '/api/v1/app/activate-account':
+  case '/v1/app/activate-account':
+    load_model("app", "activate-account");
+    break;
     
   default:
     api__response(404, "Endpoint not found");

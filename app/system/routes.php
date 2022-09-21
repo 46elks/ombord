@@ -65,6 +65,11 @@ switch ($_SERVER["REQUEST_URI"]) {
     ui__view_page("projects.php");
     break;
 
+  case (bool)preg_match('/^\/activate\/?(.*?)$/', $request):
+  case '/activate':
+    ui__view_page("activate.php");
+    break;
+
   case '/logout':
     ui__view_page("logout.php");
     break;

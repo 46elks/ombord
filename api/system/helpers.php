@@ -106,6 +106,25 @@ SQL;
    * 
    */
 
-  function get_hashed_password($password){
+  function generate_hashed_password($password){
     return password_hash($password, PASSWORD_BCRYPT);
+  }
+
+
+  /* -------------------------------
+     ------------------------------- */
+
+  /**
+   * Generate a hash to activate an account with a password
+   *
+   * @param $email (string) - required
+   * @param $date (string) - required
+   * @param $salt (string) - required
+   *
+   * @return string
+   *
+   */
+
+  function generate_activation_hash($email,$salt){
+    return md5($email.$salt);
   }

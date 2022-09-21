@@ -15,20 +15,42 @@ switch(strtoupper($_SERVER['REQUEST_METHOD'])):
 
     // Get data from request
     $data = api__request_data();
-    $user_id = user__add($data['email'], $data['password']);
+    $email    = isset($data['email']) ? $data['email'] : null;
+    $password = isset($data['password']) ? $data['password'] : null;
+      
+    $response = array();
+    $hash = null;
 
-    unset($data['email']);
-    unset($data['password']);
+    // Add user
+    $user_id = user__add($email, $password);
+    $response['id'] = $user_id;
 
-    // Update user
+    if($email) unset($data['email']);
+    if($password) unset($data['password']);
+
+    // Generate an activation hash of no password was set
+    if(!$password):
+      $sql        = 'SELECT email, password_salt FROM users WHERE id = :user_id LIMIT 1';
+      $params     = ['user_id' => $user_id];
+      $user_data  = db__select($sql, $params);
+
+      if(!empty($user_data[0])):
+        $user_data = $user_data[0];
+        $hash = generate_activation_hash($user_data['email'], $user_data['password_salt']);
+        $response['hash'] = $hash;
+        $data['password_hash'] = $hash;
+      endif;
+
+    endif;
+
+    // Update user if there are any data to be updated
     if(!empty($data)):
       load_model("users","update");
       users__update($user_id,$data);
     endif;
 
     // Send response
-    $results = ['id' => $user_id];
-    api__response(200, $results);
+    api__response(200, $response);
 
     break;
 

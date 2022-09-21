@@ -126,10 +126,6 @@ switch (strtoupper($action)) {
   // USERS
   case 'ADD_USER':
 
-    if(empty($data['password'])) $data['password'] = "hej123";
-
-    if(isset($data['is_template'])) $data['is_template'] = "1";
-
     if (isset($data['name'])) :
       $name = explode(' ', $data['name'], 2);
       if(count($name) > 1):
@@ -163,7 +159,17 @@ switch (strtoupper($action)) {
       endif;
       
     endif;
-    
+
+    // Send account activation link via email
+    if(isset($result[0]['hash']) && isset($data['email']) && respons_is_200($result[1])):
+      $to = $_SESSION["user"]["email"]; # Send to the person who is currently logged in
+      $subject = "Nytt konto på Ombord";
+      $message = "Du har skapat ett nytt konto på ombord för användaren ".urldecode($data['email'])."\r\n";
+      $message .= "Kontot måste aktiveras på följande länk: ".BASE_URL."/activate?hash=".$result[0]['hash']."\r\n";
+      $headers =  "CC: ".SYSTEM_ADMIN_EMAIL."\r\n";
+      mail($to, $subject, $message, $headers);
+    endif;
+      
     // Return results
     parse_request($result[0], $result[1]);
 
