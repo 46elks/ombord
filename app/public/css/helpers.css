@@ -53,6 +53,7 @@ ul.checkbox-list li{
 .text--left{text-align: left;}
 .text--right{text-align: right;}
 .text--center{text-align: center;}
+p.notice--error{color: var(--medium-red);}
 
 .preamble{
   font-size: 1.3rem;

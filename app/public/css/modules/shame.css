@@ -1,12 +1,15 @@
-section#login{
+section#login,
+section#activate-account{
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
 }
-section#login h1{
-  margin-bottom: 1rem;
+section#login h1,
+section#activate-account h1{
+  margin-bottom: 3rem;
 }
-section#login form *{
+section#login form *,
+section#activate-account form *{
   width: 100%;
 }
 

@@ -10,6 +10,8 @@
   --medium-purple: #dbdbff;
   --dark-purple: #656da9;
 
+  --medium-red: #ff4e4e;
+
   --link-color: var(--light-blue);
   --link-hover-color: var(--medium-blue);
 }
