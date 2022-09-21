@@ -2,5 +2,8 @@
 /api/config.php
 /app/config.php
 
-/*/logs/*.log
 /app/uploads/
+
+/*/logs/*.log
+/logs
+*.log
