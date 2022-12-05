@@ -51,6 +51,11 @@ switch ($_SERVER["REQUEST_URI"]) {
     ui__view_page("login.php");
     break;
 
+  case '/profile':
+  case '/profile/':
+    header("Location: /team/".$_SESSION["user"]["id"]);
+    break;
+
   case '/team':
   case (bool)preg_match('/^(.*?)\/team(.*?)$/', $request):
     ui__view_page("team.php");
