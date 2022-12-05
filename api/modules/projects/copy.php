@@ -48,6 +48,12 @@
     load_model("projects".DS."lists","get");
     $lists = projects_lists__get($old_project);
 
+    // Ensure no task is copied twice. 
+    // That could happend for tasks that are 
+    // assigned to mulitple lists (a.k.a linked tasks)
+
+    $copied_tasks = [];
+    
     // 2. Copy each list
     foreach ($lists as $key => $old_list) :
       
@@ -65,13 +71,14 @@
       projects_lists__add($new_project, $new_list);
 
       // 2.2 Copy old list tasks
-      projects__copy_tasks($old_list['id'], $new_list);
+      $copied_tasks = projects__copy_tasks($old_list['id'], $new_list, $copied_tasks);
 
     endforeach;
 
   }
 
-  function projects__copy_tasks($old_list, $new_list){
+  
+  function projects__copy_tasks($old_list, $new_list, $copied_tasks = array()){
     
     // 1. Get tasks from old list
     load_model("lists".DS."tasks","get");
@@ -80,11 +87,19 @@
     // 2. Copy each task
     foreach ($tasks as $key => $old_task) :
       
+      // If the current task is a linked tasks it should
+      // not be copied again, but referenced in the new list
+      if (array_key_exists($old_task['id'], $copied_tasks)):
+        list_tasks__add($new_list, $copied_tasks[$old_task['id']]);
+        continue;
+      endif;
+
       $title = (isset($old_task['title'])) ? $old_task['title'] : "";
       $description = (isset($old_task['description'])) ? $old_task['description'] : "";
       
       load_model("tasks","add");
       $new_task = tasks__add($title, $description);
+      $copied_tasks[$old_task['id']] = $new_task;
 
       // 2.1. Assign task to new list
       load_model("lists".DS."tasks","add");
@@ -95,6 +110,7 @@
 
     endforeach;
 
+    return $copied_tasks;
   }
 
 
