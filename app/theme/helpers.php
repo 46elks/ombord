@@ -24,6 +24,28 @@
    ------------------------------- */
 
   /**
+   * Validate password
+   * 
+   * @return boolean
+   * 
+   */ 
+
+  function password_is_valid($password) {
+    
+    $uppercase      = preg_match('@[A-Z]@', $password);
+    $lowercase      = preg_match('@[a-z]@', $password);
+    $number         = preg_match('@[0-9]@', $password);
+    $special_chars  = preg_match('@[^\w]@', $password);
+
+    return ($uppercase && $lowercase && $number && $special_chars && strlen($password) >= 8);
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
    * Check if user is signed in by looking fo a user session
    * 
    * @return bool

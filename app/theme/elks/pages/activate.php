@@ -6,14 +6,11 @@ $hash = (isset($_GET['hash'])) ? $_GET['hash'] : "";
 if(empty($hash)) header("Location: /login");
 
 if (isset($_POST['password']) && isset($_POST['password_again'])):
-
   if($_POST['password'] !== $_POST['password_again']):
-    // Check if the passwords match
     $error = "Lösenorden stämmer inte överrens. Försök igen";
-  elseif(strlen($_POST['password']) < 8):
-    $error = "Lösenordet måste vara minst 8 tecken långt";
+  elseif(!password_is_valid($_POST['password'])) :
+    $error = "Lösenordet måste vara minst 8 tecken långt, innehålla minst en siffra, en stor och liten bokstav samt ett specialtecken.";
   else:
-
     // Activate user  
     $user_obj = null;
     extract($_POST);

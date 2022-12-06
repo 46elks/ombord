@@ -79,6 +79,10 @@ switch ($_SERVER["REQUEST_URI"]) {
     ui__view_page("logout.php");
     break;
   
+  case (bool)preg_match('/^(.*?)\/change-password(.*?)$/', $request):
+    ui__view_page("change-password.php");
+    break; 
+
   default:
     ui__view_page("error-404.php");
     break;

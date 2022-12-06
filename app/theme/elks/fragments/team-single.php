@@ -47,6 +47,7 @@
   <footer>
     <?php if($id == get_user_id()): ?>
       <a href="javascript:void(0);" onClick="openModal('modal-user-update');" class="btn">Redigera profil</a>
+      <a href="/change-password" class="btn">Ändra lösenord</a>
     <?php endif; ?>
   </footer>
 </div>

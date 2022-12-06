@@ -35,8 +35,6 @@
   <label for="phone_private">Telefonnummer (privat)</label>
   <input type="text" id="phone_private" name="phone_private" placeholder="Privat nummer" value="<?=$phone_private;?>">
   <br>
-  <label for="password">Lösenord</label>
-  <input type="password" id="password" name="password" value="">
   <br>
   <input type="hidden" name="_action" value="update_user">
   <input type="hidden" name="user_id" value="<?=htmlentities(get_user_id());?>">

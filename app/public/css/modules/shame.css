@@ -1,13 +1,16 @@
+section#change-password,
 section#login,
 section#activate-account{
   max-width: 500px;
   margin: 0 auto;
   text-align: center;
 }
+section#change-password h1,
 section#login h1,
 section#activate-account h1{
   margin-bottom: 3rem;
 }
+section#change-password form *,
 section#login form *,
 section#activate-account form *{
   width: 100%;
