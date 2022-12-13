@@ -58,6 +58,10 @@ case '/api/v1/users/projects':
   case '/v1/app/activate-account':
     load_model("app", "activate-account");
     break;
+
+  case (bool)preg_match('/^(.*?)\/reset-password(.*?)$/', $_SERVER["REQUEST_URI"]):
+    load_model("app", "reset-password");
+    break;
     
   default:
     api__response(404, "Endpoint not found");

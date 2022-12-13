@@ -1,3 +1,4 @@
+section#reset-password,
 section#change-password,
 section#login,
 section#activate-account{
@@ -5,11 +6,13 @@ section#activate-account{
   margin: 0 auto;
   text-align: center;
 }
+section#reset-password h1,
 section#change-password h1,
 section#login h1,
 section#activate-account h1{
   margin-bottom: 3rem;
 }
+section#reset-password form *,
 section#change-password form *,
 section#login form *,
 section#activate-account form *{

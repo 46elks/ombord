@@ -33,6 +33,7 @@ endif;?>
         <input type="password" name="password" value="" placeholder="Lösenord">
         <button type="submit" class="btn">Logga in</button>
       </form>
+      <p><a href="/reset">Glömt lösenord?</a></p>
     </section>
   </div>
 </div>

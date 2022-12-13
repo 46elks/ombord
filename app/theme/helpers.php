@@ -46,6 +46,113 @@
    ------------------------------- */
 
   /**
+   * Process password reset request
+   * 
+   * @return array
+   * 
+   */ 
+
+  function process_password_reset($post_data){
+
+    extract($post_data);
+    
+    // If a token is provided, go ahead and reset the password
+    if(!empty($token)):
+      return reset_password($post_data);
+    endif;
+
+    // Get a new token for the user
+    $results = ui__api_get("/app/reset-password", ['email' => $email], null, null);
+    
+    if(!isset($results['token'])):
+      return ["error" => true, "message" => "Vi kunde inte hitta användaren 🤔"];
+    endif;
+
+    // Send reset link to the user
+    return send_password_reset_link(['token' => $results['token'], 'email' => $email]);
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Send a password reset link to user
+   * 
+   * @return array
+   * 
+   */ 
+
+  function send_password_reset_link($data){
+    
+    extract($data);
+
+    $to = $email;
+    $subject = "Lösenordsåterställning på Ombord";
+    $message = "Någon har begärt ut en nytt lösenord för ditt konto på Ombord.\r\n";
+    $message .= "Återställ lösenordet via följade länk ".BASE_URL."/reset?token=".$data['token'].". Länken är giltig i 10 minuter.\r\n\r\n";
+    $message .= "Om du inte har begärt ut något nytt lösenord kan du bortse från detta mejl.\r\n";
+    $headers =  "";
+    $mail_res = mail($to, $subject, $message, $headers);
+
+    if(!$mail_res):
+      debug__log($mail_res);
+      return ["error" => true, "message" => "Det gick inte att skicka en återställningslänk."];
+    endif;
+    
+    return ["error" => false, "message" => ""];
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Reset password
+   * 
+   * @return array
+   * 
+   */ 
+
+  function reset_password($data) {
+
+    if(empty($data)) return ["error" => true, "message" => "Ingen data"];
+    extract($data);
+    
+    $error_msg = "";
+
+    // Check if new password was provided
+    if(!isset($password) || !isset($password_again)):
+      $error_msg = "Vänligen ange ett nytt lösenord";
+
+    // Check if the passwords match
+    elseif($password !== $password_again):
+      $error_msg = "Lösenorden stämmer inte överrens. Försök igen";
+    
+    // Validate password
+    elseif(!password_is_valid($data['password'])) :
+      $error_msg = "Lösenordet måste vara minst 8 tecken långt, innehålla minst en siffra, en stor och liten bokstav samt ett specialtecken.";
+    
+    // Checks are OK. Change password.
+    else:
+      $pwd_is_changed = ui__api_post("/app/reset-password", ['password' => $password, 'token' => $token], null, null);
+      if(!$pwd_is_changed) $error_msg = "Lösenordsändringen misslyckades.";
+    
+    endif;
+    
+    $error = !(empty($error_msg));
+    $response = ["error" => $error, "message" => $error_msg];
+    return $response;
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
    * Check if user is signed in by looking fo a user session
    * 
    * @return bool

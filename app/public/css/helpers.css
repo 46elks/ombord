@@ -61,6 +61,8 @@ p.notice--error{color: var(--medium-red);}
   line-height: 1.5;
 }
 
+.keep-together{white-space: nowrap;}
+
 /* Tiny grid system */
 .row{
   display: flex;
