@@ -184,6 +184,7 @@ CREATE TABLE `sessions` (
   `token` varchar(40) NOT NULL,
   `expire_at` timestamp NULL DEFAULT NULL,
   `user_id` int(11) NOT NULL,
+  `is_used` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

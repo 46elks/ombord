@@ -121,7 +121,7 @@
       return $pwd_check;
 
     // Activate user  
-    $user_obj = ui__api_post("/activate-account", ['password' => $password, 'token' => $token], null, null);
+    $user_obj = ui__api_post("/activate-account", ['password' => urlencode($password), 'token' => $token], null, null);
 
     if(empty($user_obj)) 
       return ["error" => true, "message" => "Aktiveringen misslyckades"];
@@ -254,7 +254,7 @@
     if($pwd_check["error"]) return $pwd_check;
     
     // Checks are OK. Change password.
-    $args = ['password' => $password];
+    $args = ['password' => urlencode($password)];
     if(isset($token)):
       $args['token'] = $token;
       $pwd_changed = ui__api_post("/reset-password", $args, APP_USER, APP_PASS);
