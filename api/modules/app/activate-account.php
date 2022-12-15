@@ -1,40 +1,51 @@
 <?php 
 
-  header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: POST");
 
-  $password = $_POST['password'];
-  $hash     = $_POST['hash'];
+if($_SERVER['REQUEST_METHOD']):
 
-  if(!isset($hash) || !isset($password)) api__response(401,"Missing password or hash");
+  $data = api__request_data();
+  extract($data);
 
-  $params  = ['hash' => $hash];
+  if(!isset($password)) api__response(400,"Missing password");
+  if(!isset($token)) api__response(400,"Missing token");
+
+  load_model("sessions","get");
+  $session = session__get("invite", $token);
+
+  // Check if token is valid
+  if(!isset($session[0])) api__response(400,"Token not found");
+
+  extract($session[0]);
+
+  if(time() > strtotime($expire_at)) api__response(400,"Invalid token");
+  if($is_used) api__response(400,"Token is already used");
+
+  // Set the new password and activate user account
+  load_model("users","update");
+  users__update($user_id,['password' => $password, 'is_activated' => 1]);
+
+  // Disable the token to prevent it being used again
+  load_model("sessions","update");
+  session__update($token,'invite',['is_used' => 1]);
+
+  $params  = ['user_id' => $user_id];
   $sql =<<< SQL
     SELECT 
       id,
       email,
-      password_salt,
       api_secret,
       api_user
     FROM users
-    WHERE password_hash = :hash 
+    WHERE id = :user_id 
       AND is_deleted = 0
-      AND is_activated = 0
+      AND is_activated = 1
     LIMIT 1;
 SQL;
 
-  $results = db__select($sql, $params);
-
-  // Check if hash is valid
-  extract($results[0]);
-  if(!isset($results[0])) api__response(401,"Invalid activation code");
-  if($hash != generate_activation_hash($email,$password_salt)) api__response(401,"Invalid activation code");
-
-  // Set the new password
-  load_model("users","update");
-  users__update($id,['password' => $password, 'is_activated' => 1]);
+  $user = db__select($sql, $params);
 
   // Return response
-  unset($results[0]['email']);
-  unset($results[0]['password_salt']);
+  api__response(200, $user);
 
-  api__response(200, $results[0]);
+endif;

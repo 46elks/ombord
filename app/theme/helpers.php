@@ -24,13 +24,13 @@
    ------------------------------- */
 
   /**
-   * Validate password
+   * Check if the password is strong
    * 
    * @return boolean
    * 
    */ 
 
-  function password_is_valid($password) {
+  function password_is_strong($password) {
     
     $uppercase      = preg_match('@[A-Z]@', $password);
     $lowercase      = preg_match('@[a-z]@', $password);
@@ -38,6 +38,97 @@
     $special_chars  = preg_match('@[^\w]@', $password);
 
     return ($uppercase && $lowercase && $number && $special_chars && strlen($password) >= 8);
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Check if two passwords match
+   * 
+   * @return boolean
+   * 
+   */ 
+
+  function passwords_match($pwd1, $pwd2) {
+    
+    // Check if passwords was provided
+    if(!isset($pwd1) || !isset($pwd2)) return false;
+
+    // Check if the passwords match
+    if($pwd1 !== $pwd2) return false;
+
+    return true;
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Validate one or two passwords
+   * 
+   * @return array
+   * 
+   */ 
+
+  function password_validation($pwd1, $pwd2 = null) {
+    
+    $message = "";
+
+    if(!isset($pwd1)) 
+      return ["error" => true, "message" => "Lösenord saknas"];
+
+    // If a second password was provided,
+    // check if the two passwords match
+    if($pwd2 != null):
+      if(!passwords_match($pwd1, $pwd2))
+        return ["error" => true, "message" => "Lösenorden stämmer inte överrens."];
+    endif;
+
+    // Validate password
+    if(!password_is_strong($pwd1)) :
+      $message = "Lösenordet måste vara minst 8 tecken långt, innehålla minst en siffra, en stor och liten bokstav samt ett specialtecken.";
+      return ["error" => true, "message" => $message];
+    endif;
+    
+    return ["error" => false];
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Process account activation
+   * 
+   * @return array
+   * 
+   */ 
+
+  function process_account_activation($post_data){
+
+    extract($post_data);
+
+    // Check if passwords pass validation
+    $pwd_check = password_validation($password, $password_again);
+
+    if($pwd_check["error"]) 
+      return $pwd_check;
+
+    // Activate user  
+    $user_obj = ui__api_post("/activate-account", ['password' => $password, 'token' => $token], null, null);
+
+    if(empty($user_obj)) 
+      return ["error" => true, "message" => "Aktiveringen misslyckades"];
+    
+    // Redirect to dashboard on sucessfull activation
+    set_session_user_data($user_obj[0]);
+    header("Location: /dashboard");
 
   }
 
@@ -62,7 +153,7 @@
     endif;
 
     // Get a new token for the user
-    $results = ui__api_get("/app/reset-password", ['email' => $email], null, null);
+    $results = ui__api_get("/reset-password", ['email' => $email], APP_USER, APP_PASS);
     
     if(!isset($results['token'])):
       return ["error" => true, "message" => "Vi kunde inte hitta användaren 🤔"];
@@ -70,6 +161,40 @@
 
     // Send reset link to the user
     return send_password_reset_link(['token' => $results['token'], 'email' => $email]);
+
+  }
+
+
+  /* -------------------------------
+   ------------------------------- */
+
+  /**
+   * Send a account activation link to user
+   * 
+   * @return array
+   * 
+   */ 
+
+  function send_account_activation_link($data){
+    
+    $data["url"] = BASE_URL."/activate?token=".$data["token"];
+    $data["contact_person"] = SYSTEM_ADMIN_EMAIL;
+    
+    ob_start();
+    ui__view_fragment("email".DS."welcome-to-ombord.php", $data);
+    $body = ob_get_clean();
+
+    $to       = $data["email"];
+    $subject  = "Välkommen till Ombord";
+    $headers  =  "";
+
+    $mail_res = mail($to, $subject, $body, $headers);
+
+    if(!$mail_res):
+      return ["error" => true, "message" => "Det gick inte att skicka en aktiveringslänk."];
+    endif;
+    
+    return ["error" => false];
 
   }
 
@@ -86,22 +211,21 @@
 
   function send_password_reset_link($data){
     
-    extract($data);
-
-    $to = $email;
-    $subject = "Lösenordsåterställning på Ombord";
-    $message = "Någon har begärt ut en nytt lösenord för ditt konto på Ombord.\r\n";
-    $message .= "Återställ lösenordet via följade länk ".BASE_URL."/reset?token=".$data['token'].". Länken är giltig i 10 minuter.\r\n\r\n";
-    $message .= "Om du inte har begärt ut något nytt lösenord kan du bortse från detta mejl.\r\n";
-    $headers =  "";
-    $mail_res = mail($to, $subject, $message, $headers);
-
-    if(!$mail_res):
-      debug__log($mail_res);
-      return ["error" => true, "message" => "Det gick inte att skicka en återställningslänk."];
-    endif;
+    $data["url"] = BASE_URL."/reset?token=".$data['token'];
     
-    return ["error" => false, "message" => ""];
+    ob_start();
+    ui__view_fragment("email".DS."reset-password.php", $data);
+    $body = ob_get_clean();
+
+    $to       = $data["email"];
+    $subject  = "Lösenordsåterställning på Ombord";
+    $headers  =  "";
+    $mail_res = mail($to, $subject, $body, $headers);
+
+    if(!$mail_res)
+      return ["error" => true, "message" => "Det gick inte att skicka en återställningslänk."];
+    
+    return ["error" => false];
 
   }
 
@@ -118,33 +242,33 @@
 
   function reset_password($data) {
 
-    if(empty($data)) return ["error" => true, "message" => "Ingen data"];
+    if(empty($data)) 
+      return ["error" => true, "message" => "Ingen data"];
+        
     extract($data);
     
-    $error_msg = "";
+    // Check if passwords pass validation
+    $pwd_check = password_validation($password, $password_again);
 
-    // Check if new password was provided
-    if(!isset($password) || !isset($password_again)):
-      $error_msg = "Vänligen ange ett nytt lösenord";
-
-    // Check if the passwords match
-    elseif($password !== $password_again):
-      $error_msg = "Lösenorden stämmer inte överrens. Försök igen";
-    
-    // Validate password
-    elseif(!password_is_valid($data['password'])) :
-      $error_msg = "Lösenordet måste vara minst 8 tecken långt, innehålla minst en siffra, en stor och liten bokstav samt ett specialtecken.";
+    // Return error if any
+    if($pwd_check["error"]) return $pwd_check;
     
     // Checks are OK. Change password.
-    else:
-      $pwd_is_changed = ui__api_post("/app/reset-password", ['password' => $password, 'token' => $token], null, null);
-      if(!$pwd_is_changed) $error_msg = "Lösenordsändringen misslyckades.";
-    
+    $args = ['password' => $password];
+    if(isset($token)):
+      $args['token'] = $token;
+      $pwd_changed = ui__api_post("/reset-password", $args, APP_USER, APP_PASS);
+    elseif(isset($user_id)):
+      $args['user_id'] = $user_id;
+      $pwd_changed = ui__api_post("/reset-password", $args, null, null);
     endif;
     
-    $error = !(empty($error_msg));
-    $response = ["error" => $error, "message" => $error_msg];
-    return $response;
+    $message = "";
+    
+    // Check if password was changed or not
+    if(!$pwd_changed) $message = "Lösenordsändringen misslyckades.";
+
+    return ["error" => !empty($message), "message" => $message];
 
   }
 

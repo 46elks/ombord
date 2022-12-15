@@ -10,13 +10,13 @@
     return get_mysql_id();
   }
 
-  function get_mysql_id(){
+  function get_mysql_id($api_user, $api_pass){
 
     global $mysql_id;
 
     if(isset($mysql_id) && !empty($mysql_id)) return $mysql_id;
 
-    $params = ['api_user' => $_SERVER['PHP_AUTH_USER'], 'api_secret' => $_SERVER['PHP_AUTH_PW']];
+    $params = ['api_user' => $api_user, 'api_secret' => $api_pass];
     $sql =<<< SQL
       SELECT id 
       FROM users 
@@ -49,20 +49,21 @@ SQL;
   // Check if user is correctly authenticathed
   function api__is_authenticated(){
 
-    if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])) :
+    if(!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW'])):
       header('WWW-Authenticate: Basic realm="My Realm"');
-      http_response_code(401);
-      exit(json_encode("Invalid username and password"));
-    else:
-      if (empty(get_mysql_id())) :
-        header('WWW-Authenticate: Basic realm="My Realm"');
-        http_response_code(401);
-        exit(json_encode("Invalid username and password"));
-      endif;
-
-      return true;
-
+      api__response(401, "Invalid username and password");
     endif;
+
+    $usr = $_SERVER['PHP_AUTH_USER'];
+    $pwd = $_SERVER['PHP_AUTH_PW'];
+    
+    if(!empty(get_mysql_id($usr, $pwd))) return true;
+
+    if($usr == APP_USER && $pwd == APP_PASS) return true;
+
+    header('WWW-Authenticate: Basic realm="My Realm"');
+    api__response(401, "Invalid username and password");
+
   }
 
 
@@ -108,23 +109,4 @@ SQL;
 
   function generate_hashed_password($password){
     return password_hash($password, PASSWORD_BCRYPT);
-  }
-
-
-  /* -------------------------------
-     ------------------------------- */
-
-  /**
-   * Generate a hash to activate an account with a password
-   *
-   * @param $email (string) - required
-   * @param $date (string) - required
-   * @param $salt (string) - required
-   *
-   * @return string
-   *
-   */
-
-  function generate_activation_hash($email,$salt){
-    return md5($email.$salt);
   }

@@ -13,6 +13,8 @@ Create the file `api/config.php` and copy/paste the settings below. Set the valu
 ```
 define('DEBUG', false); # Set to true in development mode
 define('SYSTEM_ADMIN_EMAIL', "admin@yourdomain.com");
+define('APP_USER', "");
+define('APP_PASS', "");
 
 # Database credentials
 define('DB_HOST', "localhost");
@@ -26,6 +28,8 @@ Create the file `app/config.php` and copy/paste the settings below. Set the valu
 ```
 define('DEBUG', false); # Set to true in development mode
 define('SYSTEM_ADMIN_EMAIL', "admin@yourdomain.com");
+define('APP_USER', "");
+define('APP_PASS', "");
 
 # API URL
 define('BASE_URL', "http://ombord.yourdomain.com");
@@ -35,6 +39,8 @@ define('BASE_URL_API', BASE_URL."/api/v1");
 define('UPLOAD_URL', BASE_URL."/uploads"); // URL in browser
 define('UPLOAD_PATH', ROOT.DS."uploads"); // Server path
 ```
+
+`APP_USER` and `APP_PASS` must match between the both config files.
 
 ## Server config
 

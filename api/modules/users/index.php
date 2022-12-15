@@ -19,7 +19,6 @@ switch(strtoupper($_SERVER['REQUEST_METHOD'])):
     $password = isset($data['password']) ? $data['password'] : null;
       
     $response = array();
-    $hash = null;
 
     // Add user
     $user_id = user__add($email, $password);
@@ -28,17 +27,27 @@ switch(strtoupper($_SERVER['REQUEST_METHOD'])):
     if($email) unset($data['email']);
     if($password) unset($data['password']);
 
-    // Generate an activation hash of no password was set
+    // Generate an invite token if no password was set
     if(!$password):
-      $sql        = 'SELECT email, password_salt FROM users WHERE id = :user_id LIMIT 1';
+
+      $sql        = 'SELECT email, password_salt AS "salt" FROM users WHERE id = :user_id LIMIT 1';
       $params     = ['user_id' => $user_id];
       $user_data  = db__select($sql, $params);
 
       if(!empty($user_data[0])):
-        $user_data = $user_data[0];
-        $hash = generate_activation_hash($user_data['email'], $user_data['password_salt']);
-        $response['hash'] = $hash;
-        $data['password_hash'] = $hash;
+
+        extract($user_data[0]);
+        $time   = time();
+        $now    = date("Y-m-d H:i:s", $time);
+        $token  = sha1($email.$salt.$now);
+        $expire = date("Y-m-d H:i:s", $time + 604800); // Expire after 7 days
+        $type   = "invite";
+
+        load_model("sessions","add");
+        session__add($type, $token, $user_id, $expire);
+
+        $response['token'] = $token;
+
       endif;
 
     endif;

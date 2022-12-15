@@ -2,6 +2,9 @@
 
 header("Access-Control-Allow-Methods: POST, GET");
 
+// Ensure request is authenticated
+api__is_authenticated();
+
 switch(strtoupper($_SERVER['REQUEST_METHOD'])):
   
   // Reset password
@@ -11,7 +14,21 @@ switch(strtoupper($_SERVER['REQUEST_METHOD'])):
     extract($data);
 
     if(!isset($password)) api__response(400,"Missing password");
-    if(!isset($token)) api__response(400,"Missing token");
+    
+
+    if(isset($user_id)):
+
+      // Set the new password
+      load_model("users","update");
+      users__update($user_id,['password' => $password]);
+
+      // Return response
+      api__response(200, "Password updated");
+
+    elseif(!isset($token)):
+      api__response(400,"Missing token");
+    endif;
+    
 
     load_model("sessions","get");
     $results = session__get("reset-password", $token);

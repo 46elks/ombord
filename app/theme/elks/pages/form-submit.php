@@ -145,7 +145,7 @@ switch (strtoupper($action)) {
 
       if(!isset($description)) $description = null;
       $project_data = [
-        'name' => "Omboarding ".$data['firstname'],
+        'name' => "Onboarding ".$data['firstname'],
         'title' => "Välkommen ".$data['firstname'],
         'description' => $description,
         'user_id' => $user_id, 
@@ -161,13 +161,8 @@ switch (strtoupper($action)) {
     endif;
 
     // Send account activation link via email
-    if(isset($result[0]['hash']) && isset($data['email']) && respons_is_200($result[1])):
-      $to = $_SESSION["user"]["email"]; # Send to the person who is currently logged in
-      $subject = "Nytt konto på Ombord";
-      $message = "Du har skapat ett nytt konto på ombord för användaren ".urldecode($data['email'])."\r\n";
-      $message .= "Kontot måste aktiveras på följande länk: ".BASE_URL."/activate?hash=".$result[0]['hash']."\r\n";
-      $headers =  "CC: ".SYSTEM_ADMIN_EMAIL."\r\n";
-      mail($to, $subject, $message, $headers);
+    if(isset($result[0]['token']) && isset($data['email']) && respons_is_200($result[1])):
+      send_account_activation_link(["name" => $data['firstname'], "email" => $data['email'],"token" => $result[0]['token']]);
     endif;
       
     // Return results

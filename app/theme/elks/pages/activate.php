@@ -1,31 +1,18 @@
 <?php 
 
-$error = "";
-$hash = (isset($_GET['hash'])) ? $_GET['hash'] : "";
+$error    = false;
+$success  = false;
+$message  = "";
+$token = (isset($_GET['token'])) ? $_GET['token'] : "";
 
-if(empty($hash)) header("Location: /login");
+if(empty($token)) header("Location: /login");
 
-if (isset($_POST['password']) && isset($_POST['password_again'])):
-  if($_POST['password'] !== $_POST['password_again']):
-    $error = "Lösenorden stämmer inte överrens. Försök igen";
-  elseif(!password_is_valid($_POST['password'])) :
-    $error = "Lösenordet måste vara minst 8 tecken långt, innehålla minst en siffra, en stor och liten bokstav samt ett specialtecken.";
-  else:
-    // Activate user  
-    $user_obj = null;
-    extract($_POST);
-    $user_obj = ui__api_post("/app/activate-account", ['password' => $password, 'hash' => $hash], null, null);
-    if($user_obj == null):
-      $error = "Aktiveringen misslyckades.<br>Antingen så finns inte användaren eller så är aktiveringskoden ogiltig.";
-    else:
-      set_session_user_data($user_obj);
-      // Redirect to dashboard on sucessfull login
-      header("Location: /dashboard");
-    endif;
-  endif;
+if ($_SERVER['REQUEST_METHOD'] == "POST") :
+  extract(process_account_activation($_POST));
+  $success = !$error;
+endif;
 
-
-endif; ?>
+?>
 
 <?php ui__view_fragment("head.php");?>
 
@@ -34,12 +21,12 @@ endif; ?>
     <section id="activate-account">
       <h1>Aktivera ditt konto</h1>
       <?php if($error): ?>
-        <p class="notice--error"><?=$error;?></p>
+        <p class="notice--error"><?=$message;?></p>
       <?php endif; ?>
       <form action="" method="post">
         <input type="password" required name="password" value="" placeholder="Ange ditt nya lösenord">
         <input type="password" required name="password_again" value="" placeholder="Ange ditt lösenord igen">
-        <input type="hidden" name="hash" value="<?=htmlspecialchars($_GET['hash']);?>">
+        <input type="hidden" name="token" value="<?=htmlspecialchars($token);?>">
         <button type="submit" class="btn">Aktivera</button>
       </form>
     </section>

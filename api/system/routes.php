@@ -1,7 +1,9 @@
 <?php 
 
+$request = $_SERVER["REQUEST_URI"];
+
 // Route pages to its corresponding view
-switch ($_SERVER["REQUEST_URI"]) {
+switch ($request) {
 
   case '/api/v1/tasks':
   case '/v1/tasks':
@@ -53,13 +55,14 @@ case '/api/v1/users/projects':
   case '/v1/app/login':
     load_model("app", "login");
     break;
-
-  case '/api/v1/app/activate-account':
-  case '/v1/app/activate-account':
+  
+  case (bool)preg_match('/^\/api\/v1\/activate-account\/?(.*?)$/', $request):
+  case (bool)preg_match('/^\/v1\/activate-account\/?(.*?)$/', $_SERVER["REQUEST_URI"]):
     load_model("app", "activate-account");
     break;
 
-  case (bool)preg_match('/^(.*?)\/reset-password(.*?)$/', $_SERVER["REQUEST_URI"]):
+  case (bool)preg_match('/^\/api\/v1\/reset-password\/?(.*?)$/', $_SERVER["REQUEST_URI"]):
+  case (bool)preg_match('/^\/v1\/reset-password?(.*?)$/', $_SERVER["REQUEST_URI"]):
     load_model("app", "reset-password");
     break;
     
