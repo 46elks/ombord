@@ -703,6 +703,9 @@
     $keys = array_flip($order);
 
     usort($tasks, function ($a, $b) use ($keys) {
+      if(!isset($keys[$a['id']]) || !isset($keys[$b['id']]))
+        return 1;
+
       return $keys[$a['id']] > $keys[$b['id']] ? 1 : -1;
     });
 

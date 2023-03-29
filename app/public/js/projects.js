@@ -30,7 +30,7 @@ function deleteProjectCallback(data){
 
 // Function to be called after a project has been updated
 function editProjectCallback(data){
-  app.log(data);
+  app.log("Callback: Edit project");
 
   // Update changes in DOM
   let element = document.getElementById('project-'+data.project_id);

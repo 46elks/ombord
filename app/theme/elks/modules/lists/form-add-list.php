@@ -4,6 +4,6 @@
   <input type="hidden" name="project_id" value="<?=get_project_id();?>">
   <div class="input-group input-inline">
     <input type="text" name="title" class="js-new-list-field new-list-field field--sm" placeholder="Ny lista" value="">
-    <button type="submit" class="js-new-list-btn btn-inverse btn--sm">Skapa lista</button>
+    <button type="submit" class="js-new-list btn-inverse btn--sm">Skapa lista</button>
   </div>
 </form>

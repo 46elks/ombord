@@ -8,7 +8,7 @@
 
 <div id="modal-project-update" class="js-modal modal hidden">
   <div class="modal__content">
-
+    <a href="javascript:void(0);" onclick="closeModal('modal-project-update')" class="modal__close-btn js-btn-close icon-cross"></a>
     <div class="row">
       
       <div class="inner-wrapper">
@@ -37,6 +37,8 @@
               </li>
             <?php endforeach; ?>
           </ul>
+
+          <p><small><em>Användare läggs till på/tas bort från projektet direkt när du bockar i/ur checkrutan.</em></small></p>
         <?php else: ?>
           <p>Detta är en projektmall och därför kan du inte välja vilka personer som ska ha tillgång till projektet.</p>
         <?php endif; ?>

@@ -30,6 +30,13 @@ $list['items'] = $tasks;
             <?php if(is_admin()): ?>
               <li><a href="javascript:void(0);" onClick="editList(<?=$id;?>, editListCallback);" class="js-edit-list-btn"><span class="icon-pencil"></span></a></li>
               <li><a href="javascript:void(0);" onClick="deleteList(<?=$id;?>, deleteListCallback);" class="js-delete-list-btn btn--warning"><span class="icon-bin"></span></a></li>
+              <li id="dropdown-list-<?=$id;?>" class="dropdown">
+                <a href="javascript:void(0);" onClick="toggleDropdown('dropdown-list-<?=$id;?>');"><span class="icon-menu"></span></a>
+                <ul class="block-list">
+                  <li><a href="javascript:void(0);" data-list="<?=$id;?>" data-project="<?=get_project_id();?>" class="dropdown__item js-dropdown-item js-before-move-list"><span class="icon-arrow-right2"></span> Flytta till</a></li>
+                  <li><a href="javascript:void(0);" data-list="<?=$id;?>" data-project="<?=get_project_id();?>" class="dropdown__item js-dropdown-item js-before-copy-list"><span class="icon-copy"></span> Duplicera till</a></li>
+                </ul>
+              </li>
             <?php endif; ?>
           </ul>
         </div>

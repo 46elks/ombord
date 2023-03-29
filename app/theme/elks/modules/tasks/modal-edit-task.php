@@ -1,5 +1,7 @@
 <div id="modal-task-update" class="js-modal modal hidden">
   <div class="modal__content">
+    <a href="javascript:void(0);" onclick="closeModal('modal-task-update')" class="modal__close-btn js-btn-close icon-cross"></a>
+
     <h2 class="text-center">Redigera uppgiften</h2>
     <?php ui__view_module("tasks", "form-edit-task.php", []);?>
 

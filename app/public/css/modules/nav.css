@@ -11,3 +11,48 @@
 .breadcrumbs__item:not(:last-of-type)::after{
   content: " / ";
 }
+
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+.dropdown ul{
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+  overflow: hidden;
+  z-index: 2;
+}
+.dropdown__item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 5px 1rem;
+  line-height: 1.5;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.dropdown__item span{margin-right: 0.5rem;}
+a.dropdown__item {
+  display: block;
+  color: var(--text-color);
+}
+.dropdown__item:last-child {margin-bottom: 0;}
+.dropdown__item:hover {
+  text-decoration: none;
+  background-color: #eee;
+}
+
+.dropdown.open ul {
+  display: block;
+  transition: all ease-in-out 1s;
+  top:2rem;
+}
+

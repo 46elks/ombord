@@ -1,163 +1,199 @@
-// ==================
-// Trigger: Add lists
-// Trigger: Add tasks
-// ==================
+// ======================
+// Document CHANGE events
+// ======================
+document.addEventListener("change",function(e){
+  app.log(e);
+  app.log(e.target);
 
-let listWrapper = document.getElementById('lists'); // Multiple lists page
-if(!listWrapper) listWrapper = document.querySelector('.js-list-wrapper'); // Single list page
+  // ======================
+  // Trigger: Complete task
+  // ======================
+  if(e.target.classList.contains('js-complete-task')){
+    app.log("Trigger: Complete task");
+    completeTask(e.target.dataset.task, e.target.checked)
+  }
 
-if(listWrapper){
-  listWrapper.addEventListener("click",function(e){
-    e.preventDefault();
-    if(e.target.classList.contains('js-new-task-btn')){
-      app.log("Button 'new task' clicked");
-      let form = e.target.closest('form');
-      let inputField = form.querySelector('.js-new-task-field');
-      
-      addTask(form, function(data){
-        
-        // Clear input field
-        if(inputField) inputField.value = "";
+});
 
-        // Find HTML element
-        let taskTemplate = document.getElementById('new-task-template');
-        let parentElement = document.querySelector('#list-'+data.list_id+' .task-list');
-
-        // Render task to DOM
-        renderTask(data, taskTemplate, parentElement,function(){
-          // Update the order of the tasks in the list
-          let listElement = $('#list-'+data.list_id+' .js-tasks-list');
-          let orderOfAllTasksArray = listElement.sortable('toArray', {attribute: "data-id"});
-          var orderOfAllTasks = orderOfAllTasksArray.join(',');
-          updateSortedTasks(orderOfAllTasks,data.list_id);
-        });
-        
-      });
-
-    } else if (e.target.classList.contains('js-new-list-btn')){
-      app.log("Button 'new list' clicked");
-      let form = e.target.closest('form');
-      let inputField = form.querySelector('.js-new-list-field');
-      
-      addList(form, function(data){
-        // Clear input field
-        if(inputField) inputField.value = "";
-
-        // Find HTML element
-        let listTemplate = document.getElementById('new-list-template');
-        let parentElement = document.querySelector('.js-list-parent');
-
-        // Render list to DOM
-        renderList(data, listTemplate, parentElement);
-      });
-    } else if (e.target.href){
-      window.location = e.target.href;
-    }
-  });
-}
 
 // =====================
-// Trigger: Add projects
+// Document CLICK events
 // =====================
-let formAddProject = document.querySelector('.js-form-add-project');
-if (formAddProject) {
-  formAddProject.addEventListener("submit",function(e) {
-    app.log("Form for adding new project was trigged");
+document.addEventListener("click",function(e){
+  app.log(e);
+  app.log(e.target);
+
+  // =================
+  // Trigger: Add task
+  // =================
+  if(e.target.classList.contains('js-new-task')){
+    app.log("Trigger: New task");
     e.preventDefault();
 
-    // Create new project
-    submitForm(formAddProject,function(data){
+    let form = e.target.closest('form');
+    let inputField = form.querySelector('.js-new-task-field');
+    
+    addTask(form, function(data){
+      
+      // Clear input field
+      if(inputField) inputField.value = "";
+
+      // Find HTML element
+      let taskTemplate = document.getElementById('new-task-template');
+      let parentElement = document.querySelector('#list-'+data.list_id+' .task-list');
+
+      // Render task to DOM
+      renderTask(data, taskTemplate, parentElement,function(){
+        // Update the order of the tasks in the list
+        let listElement = $('#list-'+data.list_id+' .js-tasks-list');
+        let orderOfAllTasksArray = listElement.sortable('toArray', {attribute: "data-id"});
+        var orderOfAllTasks = orderOfAllTasksArray.join(',');
+        updateSortedTasks(orderOfAllTasks,data.list_id);
+      });
+      
+    });
+
+  // ==================
+  // Trigger: Edit task
+  // ==================
+  } else if(e.target.classList.contains('js-before-edit-task')){
+    app.log("Trigger: Before edit task");
+    beforeEditTask(e.target.dataset.task);
+    
+
+  } else if(e.target.classList.contains('js-edit-task')){
+    app.log("Trigger: Edit task");
+    e.preventDefault();
+
+    submitForm(e.target.form, function(data){
+      app.log(data);
+      editTaskCallback(data)
+    });
+
+
+  // =====================
+  // Trigger: Delete task
+  // =====================
+  } else if(e.target.classList.contains('js-delete-task')){
+    app.log("Trigger: Delete task");
+    e.preventDefault();
+    deleteTask(e.target.dataset.task, deleteTaskCallback);
+
+
+  // =================
+  // Trigger: Add list
+  // =================
+  } else if (e.target.classList.contains('js-new-list')){
+    app.log("Trigger: New list");
+    e.preventDefault();
+
+    let form = e.target.closest('form');
+    let inputField = form.querySelector('.js-new-list-field');
+    
+    addList(form, function(data){
+      // Clear input field
+      if(inputField) inputField.value = "";
+
+      // Find HTML element
+      let listTemplate = document.getElementById('new-list-template');
+      let parentElement = document.querySelector('.js-list-parent');
+
+      // Render list to DOM
+      renderList(data, listTemplate, parentElement);
+    });
+
+
+  // ===================
+  // Trigger: Move lists
+  // ===================
+  } else if (e.target.classList.contains('js-before-move-list')){
+    list.currentProjectId = e.target.dataset.project;
+    list.currentListId = e.target.dataset.list;
+    openModal('modal-list-move');
+
+  } else if(e.target.classList.contains('js-move-list')){
+    list.targetProjectId = e.target.dataset.target;
+    list.move(function(data){
+      location.href = "/projects/"+data.project_id+"/lists/"+data.list_id;
+    });
+
+
+  // ===================
+  // Trigger: Copy lists
+  // ===================
+  } else if (e.target.classList.contains('js-before-copy-list')){
+    list.currentProjectId = e.target.dataset.project;
+    list.currentListId = e.target.dataset.list;
+    openModal('modal-list-copy');
+  
+  } else if(e.target.classList.contains('js-copy-list')){
+    list.targetProjectId = e.target.dataset.target;
+    list.copy(function(data){
+      location.href = "/projects/"+data.project_id+"/lists/"+data.list_id;
+    });
+
+
+  // =====================
+  // Trigger: Add projects
+  // =====================
+  } else if (e.target.classList.contains('js-add-project')){
+    app.log("Trigger: Add project");
+    e.preventDefault();
+    
+    submitForm(e.target.form,function(data){
       // Redirect to the projects page
       if(data.id) location.href = "/projects/"+data.id;
     });
 
-  });
-}
 
-// =======================
-// Trigger: Update project
-// =======================
-let formProjectUpdate = document.getElementById('form-edit-project');
-if(formProjectUpdate){
-
-  formProjectUpdate.addEventListener("submit",function(e){
-    app.log("Form submitted");
+  // ======================
+  // Trigger: Edit projects
+  // ======================
+  } else if (e.target.classList.contains('js-edit-project')){
+    app.log("Trigger: Edit project");
     e.preventDefault();
-
-    // Submit the form
-    submitForm(formProjectUpdate,function(data){
-      app.log(data);
+    
+    submitForm(e.target.form,function(data){
       editProjectCallback(data)
     });
-  });
-}
 
-// =================
-// Trigger: Add user
-// =================
-let formAddUser = document.querySelector(".js-form-add-user");
-if (formAddUser) {
-  formAddUser.addEventListener("submit",function(e) {
-    app.log("Form for adding new user was trigged");
-    e.preventDefault();
 
-    // Create new user
-    submitForm(formAddUser,function(data){
+  // ==================
+  // Trigger: Add user
+  // ==================
+  } else if (e.target.classList.contains('js-add-user')){
+    app.log("Trigger: Add user");
+    e.preventDefault()
+    
+    submitForm(e.target.form,function(data){
       // Redirect to the users project page
       if(data.project_id) location.href = "/projects/"+data.project_id;
        
-       // Show message that the user was succesfully created
+      // Show message that the user was succesfully created
       let statusMessage = document.querySelector('.form-message');
       if(statusMessage) statusMessage.innerHTML =" Användare skapad.";
     });
-  });
-}
 
-// ====================
-// Trigger: Update user
-// ====================
-let formUpdateUser = document.getElementById("form-update-user");
-if(formUpdateUser){
-  formUpdateUser.addEventListener("submit",function(e) {
-    app.log("Form for updating a user was trigged");
-    e.preventDefault();
-    submitForm(formUpdateUser,function(data){
+
+  // ==================
+  // Trigger: Update user
+  // ==================
+  } else if (e.target.classList.contains('js-update-user')){
+    app.log("Trigger: Update user");
+    e.preventDefault()
+    
+    submitForm(e.target.form,function(data){
       let userElement = document.getElementById('user-'+data.user_id);
-      setUserData(data,userElement);
-      closeModal("modal-user-update");
+      if(userElement){
+        setUserData(data,userElement);
+        closeModal("modal-user-update");
+      }else{
+        location.reload(true)
+      }
     });
-  });
-}
+  }
+});
 
-
-// ====================
-// Trigger: Update task
-// ====================
-let formTaskUpdate = document.getElementById('form-edit-task');
-if(formTaskUpdate){
-
-  formTaskUpdate.addEventListener("submit",function(e){
-    app.log("Form submitted");
-    e.preventDefault();
-
-    // Submit the form
-    submitForm(formTaskUpdate,function(data){
-      app.log(data);
-      editTaskCallback(data)
-    });
-  });
-}
-
-// ==================
-// Cancel task update
-// ==================
-let btnCancelTaskUpdate = document.querySelector('#modal-task-update .js-btn-cancel');
-if(btnCancelTaskUpdate){
-  btnCancelTaskUpdate.addEventListener('click',function(e){
-    e.preventDefault();
-    closeModal('modal-task-update');
-  });
-}
 
 // ===========================================================
 // Enable dragging of tasks to change the order with in a list

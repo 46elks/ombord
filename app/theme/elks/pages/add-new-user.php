@@ -26,7 +26,7 @@
           </select>
           <br>
           <br>
-          <button class="btn" type="submit">Lägg till</button>
+          <button class="btn js-add-user" type="submit">Lägg till</button>
         </form>
         <p class="form-message"></p>
       </section>      

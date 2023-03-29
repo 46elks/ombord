@@ -5,7 +5,7 @@
   $completed_class = ($is_completed) ? "task__is_completed" : "";
 ?>
 
-<li id="task-<?=$id;?>" class="js-task-wrapper js-task-object pos-rel <?=$completed_class;?>" data-id="<?=$id;?>">
+<li id="task-<?=$id;?>" class="task-wrapper js-task-wrapper js-task-object pos-rel <?=$completed_class;?>" data-id="<?=$id;?>">
   <?php if($is_completed) : ?>
     <input disabled class="task__checkbox js-complete-task" type="checkbox" checked name="" id="<?=$id;?>">
   <?php endif; ?>
@@ -18,8 +18,8 @@
     <nav class="task__menu">
       <ul class="inline-list">
         <?php if(is_admin()): ?>
-          <li><a href="javascript:void(0);" onClick="editTask(<?=$id;?>, editTaskCallback);" class="js-edit-task-btn"><span class="icon-pencil"></span></a></li>
-          <li><a href="javascript:void(0);" onClick="deleteTask(<?=$id;?>, deleteTaskCallback);" class="js-delete-task-btn btn--warning"><span class="icon-bin"></span></a></li>
+          <li><a href="javascript:void(0);" data-task="<?=$id;?>" class="icon-pencil js-before-edit-task"></a></li>
+          <li><a href="javascript:void(0);" onClick="deleteTask(<?=$id;?>, deleteTaskCallback);" class="js-delete-task-btn btn--warning icon-bin"></a></li>
         <?php endif; ?>
       </ul>
     </nav>

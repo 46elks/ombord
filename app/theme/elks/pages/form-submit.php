@@ -86,6 +86,18 @@ switch (strtoupper($action)) {
     parse_request($result[0], $result[1]);
     break;
 
+  case 'COPY_LIST':
+    $data = ['project_id' => $new_project_id];
+    $result = ui__api_post("/projects/$old_project_id/lists/$old_list_id", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
+
+  case 'MOVE_LIST':
+    $data = ['project_id' => $new_project_id];
+    $result = ui__api_patch("/projects/$old_project_id/lists/$old_list_id", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
+
   case 'DELETE_LIST':
     $data = ["list_id" => $list_id];
     $result = ui__api_delete("/lists", $data, false, false, true);

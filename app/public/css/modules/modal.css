@@ -21,3 +21,20 @@
   max-height: 90vh;
   overflow-y: scroll;
 }
+.modal__title{
+  margin:0;
+}
+.modal__description{
+  margin:0;
+  font-size: 1.1rem;
+}
+.modal__close-btn{
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  color: var(--medium-grey);
+}
+.modal__close-btn:hover{
+  text-decoration: none;
+  color: var(--dark-grey);
+}

@@ -24,6 +24,10 @@ switch ($request) {
     load_model("projects/users", "index");
     break;
 
+    case (bool)preg_match('/^(.*?)\/projects\/([0-9]+?)\/lists\/([0-9]*?)$/', $request):
+    load_model("projects/lists", "index");
+    break;
+
   case '/api/v1/lists':
   case '/v1/lists':
     load_model("lists", "index");

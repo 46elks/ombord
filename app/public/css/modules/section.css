@@ -22,6 +22,7 @@ section > header h5{
   padding: 0;
   margin: 0;
 }
+.section__nav a:hover{text-decoration: none;}
 
 .section--page-header .section__nav{
   bottom: initial;

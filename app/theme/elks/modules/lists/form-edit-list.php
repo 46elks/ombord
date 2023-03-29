@@ -13,7 +13,7 @@
   <textarea name="description" id="description" cols="30" rows="10"><?=$description;?></textarea>
 
   <button type="submit" class="btn">Uppdatera</button>
-  <a class="btn-inverse js-btn-cancel">Avbryt</a>
+  <a href="javascript:void(0);" onclick="closeModal('modal-list-update')" class="btn-inverse js-btn-cancel">Avbryt</a>
   <input type="hidden" name="_action" value="update_list">
   <input type="hidden" name="_method" value="patch">
   <input type="hidden" id="list_id" name="list_id" value="<?=$id;?>">

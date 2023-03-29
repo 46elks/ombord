@@ -4,7 +4,7 @@
   <input type="hidden" name="list_id" value="<?=$module['list_id'];?>">
   <div class="input-group input-inline">
     <input type="text" name="title" id="new-task-field" class="js-field-title new-task-field field--sm" placeholder="Ny uppgift" value="">
-    <button class="btn-inverse btn--sm js-new-task-btn">Lägg till uppgift</button>
+    <button class="btn-inverse btn--sm js-new-task">Lägg till uppgift</button>
   </div>
 </form>
 

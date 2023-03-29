@@ -168,7 +168,7 @@ function renderTask(data, taskTemplate, parentElement, callback = null){
 }
 
 // Edit task
-function editTask(task_id, callback = null){
+function beforeEditTask(task_id, callback = null){
 
   let editModal = document.getElementById('modal-task-update');
 

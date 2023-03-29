@@ -97,8 +97,13 @@ function closeModal(modal_id){
 // Open modal 
 // ==========
 function openModal(modal_id){
+  app.log("Open modal "+ modal_id);
   let modal = document.getElementById(modal_id);
-  if(modal) modal.classList.remove('hidden');
+  if(modal) {
+    modal.classList.remove('hidden');
+  } else{
+    app.log("Modal not found");
+  }
 }
 
 // ======================================
@@ -177,4 +182,25 @@ function trix__uploadFile(file, progressCallback, successCallback) {
   })
 
   xhr.send(formData)
+}
+
+// ========================
+// Open/close dropdown menu
+// ========================
+
+function toggleDropdown(menu_id){
+  let menu = document.getElementById(menu_id);
+  let menuItemsWrapper = document.querySelector("#"+menu_id + " ul");
+
+  if(!menu.classList.contains('open')){
+    if(menuItemsWrapper){
+      menuItemsWrapper.addEventListener("click", function(e){
+        if(e.target.classList.contains("js-dropdown-item")){
+          toggleDropdown(menu_id);
+        }
+      }, {'once': true});
+    }
+  }
+
+  menu.classList.toggle('open');
 }

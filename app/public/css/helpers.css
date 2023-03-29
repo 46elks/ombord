@@ -22,7 +22,17 @@ ul.inline-list{
 
 .block-list{}
 .block-list li{
+  margin:0;
   margin-bottom: 5px;
+  display: block;
+}
+.block-list li:last-child{margin-bottom: 0;}
+
+.column-list__2{
+  -webkit-column-count: 2;
+     -moz-column-count: 2;
+          column-count: 2;
+  padding-left: 0;
 }
 
 ul.checkbox-list{

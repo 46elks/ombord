@@ -13,9 +13,9 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
   <div class="inner-wrapper">
     <section id="task-<?=$task['id'];?>" class="task__section js-task-wrapper task-wrapper" data-id="<?=$task['id'];?>">
       <header>
-        <label class="checkbox-square">
+        <label class="checkbox-square" for="<?=$task['id'];?>">
           <h1 class="checkbox__desc task__title js-task-title"><?=$task['title'];?></h1>
-          <input type="checkbox" <?=$is_completed;?> onclick="completeTask(<?=$task['id'];?>, this.checked, null);" class="js-complete-task js-task-status" id="<?=$task['id'];?>">
+          <input type="checkbox" <?=$is_completed;?>  data-task="<?=$task['id'];?>" class="js-complete-task js-task-status" id="<?=$task['id'];?>">
           <span class="checkmark"></span>
         </label>
       </header>
@@ -27,8 +27,8 @@ $is_completed = ($task['is_completed']) ? "checked" : "";
       </div>
 
       <?php if(is_admin()):?>
-        <button class="js-edit-task btn" onclick="editTask(<?=$task['id'];?>,editTaskCallback);" >Redigera</button>
-        <button class="js-delete-task btn-inverse" onclick="deleteTask(<?=$task['id'];?>,deleteTaskCallback);">Ta bort</button>
+        <button class="js-before-edit-task btn" data-task="<?=$task['id'];?>">Redigera</button>
+        <button class="js-delete-task btn-inverse" data-task="<?=$task['id'];?>">Ta bort</button>
         <br>
       <?php endif;?>
     </section>

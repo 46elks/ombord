@@ -45,7 +45,7 @@
         <br>
         <br>
         <br>
-        <input type="submit" class="btn" value="Skapa projekt">
+        <input type="submit" class="btn js-add-project" value="Skapa projekt">
         <br>
         
       </form>

@@ -12,8 +12,8 @@
   <label for="description">Beskrivning</label>
   <textarea id="description"  name="description" rows="10"><?=htmlspecialchars($description)?></textarea>
   <br>
-  <button type="submit" class="btn">Uppdatera</button>
-  <button class="btn-inverse js-btn-cancel">Avbryt</button>
+  <button type="submit" class="btn js-edit-project">Uppdatera</button>
+  <a href="javascript:void(0);" onclick="closeModal('modal-project-update')" class="btn-inverse js-btn-cancel">Avbryt</a>
   <input type="hidden" name="_action" value="update_project">
   <input type="hidden" name="_method" value="patch">
   <input type="hidden" id="project_id" name="project_id" value="<?=htmlentities($id);?>">

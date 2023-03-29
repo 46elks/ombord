@@ -38,6 +38,6 @@
   <br>
   <input type="hidden" name="_action" value="update_user">
   <input type="hidden" name="user_id" value="<?=htmlentities(get_user_id());?>">
-  <button type="submit" class="btn">Spara</button>
+  <button type="submit" class="btn js-update-user">Spara</button>
   <a href="javascript:void(0);" onClick="closeModal('modal-user-update');" class="btn-inverse js-btn-cancel">Avbryt</a>
 </form>

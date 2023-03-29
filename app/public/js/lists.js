@@ -275,3 +275,56 @@ function deleteListTask(taskId, listId){
     app.log("Task "+taskId+" deleted from list "+listId);
   });
 }
+
+
+let list = {
+
+  currentProjectId: null,
+  targetProjectId: null,
+  currentListId: null,
+
+  init: function(currentProjectId, targetProjectId, currentListId){
+    let me = this;
+    me.currentProjectId = currentProjectId;
+    me.targetProjectId = targetProjectId;
+    me.currentListId = currentListId;
+  },
+  
+  copy: function(callback = null){
+    let me = this;
+
+    let data = {
+      _action: "COPY_LIST",
+      old_project_id: me.currentProjectId,
+      new_project_id: me.targetProjectId,
+      old_list_id: me.currentListId,
+    }
+    apiPost(data,function(data){
+      if(callback != null) callback(data);
+    });
+
+  },
+
+  move: function(callback = null){
+    let me = this;
+
+    let data = {
+      _action: "MOVE_LIST",
+      old_project_id: me.currentProjectId,
+      new_project_id: me.targetProjectId,
+      old_list_id: me.currentListId,
+    }
+    apiPost(data,function(data){
+      if(callback != null) callback(data);
+    });
+
+  },
+
+  reset: function(){
+    let me = this;
+    me.currentProjectId = null;
+    me.targetProjectId = null;
+    me.currentListId = null;
+  }
+
+}
