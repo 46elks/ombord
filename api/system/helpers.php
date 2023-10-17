@@ -110,3 +110,29 @@ SQL;
   function generate_hashed_password($password){
     return password_hash($password, PASSWORD_BCRYPT);
   }
+
+
+// Sort items based on a provided order
+function sort_items($items, $order) {
+
+  if(empty($items) || empty($order)) return $items;
+
+  // If $order is a comma separated string
+  // convert it into an array
+  if(!is_array($order)) :
+    $order = str_replace(' ', '', $order);
+    $order  = explode(",", $order);
+  endif;
+
+  $keys = array_flip($order);
+
+  usort($items, function ($a, $b) use ($keys) {
+    if(!isset($keys[$a['id']]) || !isset($keys[$b['id']]))
+      return 1;
+
+    return $keys[$a['id']] > $keys[$b['id']] ? 1 : -1;
+  });
+
+  return $items;
+
+}

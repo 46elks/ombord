@@ -216,6 +216,39 @@ $( function() {
 
 
 // ============================================
+// Enable dragging of lists to change the order
+// ============================================
+$( function() {
+  $( ".js-project-lists" ).sortable({
+    tolerance: "pointer",
+    placeholder: "sortable-placeholder",
+    stop: function(e,ui){
+      app.log("Sorting lists..");
+      let projectWrapper = $(e.target).parents(".js-project-wrapper")[0];
+      let projectId = projectWrapper.dataset.id;
+      let orderOfAllListssArray = $(e.target).sortable('toArray', {attribute: "data-id"});
+      var orderOfAllListss = orderOfAllListssArray.join(',');
+      updateSortedLists(orderOfAllListssArray, projectId);
+
+      setTimeout(function(){
+        $(ui.item.parent()).removeClass("drag-activated")
+      },450)
+    },
+    start:function(e,ui){
+      app.log("start")
+      $(e.currentTarget).addClass("drag-activated")
+      $(this).sortable("refreshPositions")
+    },
+    activate: function(e, ui){
+      app.log("activate")
+    },
+    axis: "y",
+    handle: ".js-list-handle",
+    cursor: "grabbing"
+  });
+} );
+
+// ============================================
 // Listen for attached files in the trix editor
 // ============================================
 addEventListener("trix-attachment-add", function(event) {

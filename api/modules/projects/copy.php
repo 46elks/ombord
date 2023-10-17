@@ -13,65 +13,67 @@
    *
    */
 
-  function projects__copy($old_project, $name = "", $title = "", $description = ""){
+  function projects__copy($old_project_id, $name = "", $title = "", $description = ""){
 
-    if (empty($old_project)) :
+    if (empty($old_project_id)) :
       debug__log("Unable to copy project due to missing project id");
       api__response(400, "Missing project id");
     endif;
 
-    if($title == null || $description == null || $name == null):
-      // Get data from old project
-      load_model("projects", "get");
-      $old_project_data = projects__get($old_project);
-
-      if($title == null) $title = $old_project_data[0]['title'];
-      if($description == null) $description = $old_project_data[0]['description'];
-      if($name == null) $name = $old_project_data[0]['name'];
-    endif;
+    // Get data from old project
+    load_model("projects", "get");
+    $old_project_data = projects__get($old_project_id);
+    
+    if($title == null) $title = $old_project_data[0]['title'];
+    if($description == null) $description = $old_project_data[0]['description'];
+    if($name == null) $name = $old_project_data[0]['name'];
 
     // 1. Add new project
     load_model("projects", "add");
-    $new_project = projects__add($name,$title,$description);
+    $new_project_id = projects__add($name, $title, $description);
 
     // 2. Copy all lists that belongs to the project  
-    projects__copy_lists($old_project, $new_project);
+    load_model("projects".DS."lists","get");
+    $lists = projects_lists__get($old_project_id);
 
-    return $new_project;
+    if(!empty($old_project_data[0]['lists_order'])):
+      // Sort the lists to ensure that the new project get the lists
+      // in the same order as the old project
+      $lists = sort_items($lists, $old_project_data[0]['lists_order']);
+    endif;
+
+    projects__copy_lists($lists, $new_project_id);
+
+    return $new_project_id;
 
   }
 
 
-  function projects__copy_lists($old_project, $new_project){
-    
-    // 1. Get all lists that belongs to the old project  
-    load_model("projects".DS."lists","get");
-    $lists = projects_lists__get($old_project);
+  function projects__copy_lists($lists, $project_id){
 
     // Ensure no task is copied twice. 
     // That could happend for tasks that are 
     // assigned to mulitple lists (a.k.a linked tasks)
-
     $copied_tasks = [];
     
     // 2. Copy each list
     foreach ($lists as $key => $old_list) :
       
       load_model("lists","add");
-      $new_list = lists__add($old_list['title'], $old_list['description']);
+      $new_list_id = lists__add($old_list['title'], $old_list['description']);
 
       // If old list has tasks order, copy that as well
       if(!empty($old_list['tasks_order'])):
         load_model("lists","update");
-        lists__update($new_list, ['tasks_order' => $old_list['tasks_order']]);
+        lists__update($new_list_id, ['tasks_order' => $old_list['tasks_order']]);
       endif;
 
       // 2.1 Assign new list to new project
       load_model("projects".DS."lists","add");
-      projects_lists__add($new_project, $new_list);
+      projects_lists__add($project_id, $new_list_id);
 
       // 2.2 Copy old list tasks
-      $copied_tasks = projects__copy_tasks($old_list['id'], $new_list, $copied_tasks);
+      $copied_tasks = projects__copy_tasks($old_list['id'], $new_list_id, $copied_tasks);
 
     endforeach;
 

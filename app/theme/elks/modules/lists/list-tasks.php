@@ -6,10 +6,15 @@
 
 ?>
 
-<section id="list-<?=$id;?>" class="js-list-wrapper section--list" data-id="<?=$id;?>">
-
+<section id="list-<?=$id;?>" class="js-list-wrapper list__section" data-id="<?=$id;?>">
   <header class="list__header">
-    <h2 class="js-list-title list__title"><a href="<?=ui__get_list_url($id);?>"><?=$title;?></a></h2>
+    
+    <h2 class="js-list-title list__title">
+      <?php if(is_admin()): ?>
+        <span class="task__handle js-list-handle">::</span>
+      <?php endif; ?>
+      <a href="<?=ui__get_list_url($id);?>"><?=$title;?></a>
+    </h2>
     <div class="list__nav">
       <ul class="inline-list">
         <?php if(is_admin()): ?>

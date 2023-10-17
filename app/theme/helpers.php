@@ -510,11 +510,11 @@
    * 
    */ 
 
-  function get_sorted_list_tasks($list_id, $sort_order, $user_id = "") {
-    debug__log("UI: get_sorted_list_tasks() ");
-    $tasks = get_list_tasks($list_id, $user_id);
-    return sort_tasks($tasks, $sort_order);
-  }
+  // function get_sorted_list_tasks($list_id, $sort_order, $user_id = "") {
+  //   debug__log("UI: get_sorted_list_tasks() ");
+  //   $tasks = get_list_tasks($list_id, $user_id);
+  //   return ui__sort_tasks($tasks, $sort_order);
+  // }
 
 
 /* -------------------------------
@@ -679,19 +679,19 @@
    ------------------------------- */
 
   /**
-   * Sort tasks
+   * Sort items
    * 
-   * @param $tasks (array)
+   * @param $items (array)
    * @param $order (string or array)
    * 
    * @return array
    * 
    */
 
-  // Sort tasks based on list order
-  function ui__sort_tasks($tasks, $order) {
+  // Sort items based on a provided order
+  function ui__sort_items($items, $order) {
 
-    if(empty($tasks) || empty($order)) return $tasks;
+    if(empty($items) || empty($order)) return $items;
 
     // If $order is a comma separated string
     // convert it into an array
@@ -702,18 +702,20 @@
 
     $keys = array_flip($order);
 
-    usort($tasks, function ($a, $b) use ($keys) {
+    usort($items, function ($a, $b) use ($keys) {
       if(!isset($keys[$a['id']]) || !isset($keys[$b['id']]))
         return 1;
 
       return $keys[$a['id']] > $keys[$b['id']] ? 1 : -1;
     });
 
-    return $tasks;
+    return $items;
 
   }
 
-
+  function ui__sort_tasks($tasks, $order) {
+    return ui__sort_items($tasks, $order);
+  }
 
   /* -------------------------------
    ------------------------------- */

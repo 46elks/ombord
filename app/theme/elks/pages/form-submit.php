@@ -134,6 +134,11 @@ switch (strtoupper($action)) {
     parse_request($result[0], $result[1]);
     break;
 
+  case 'UPDATE_LISTS_ORDER':
+    $data = ["project_id" => $project_id, "lists_order" => trim($lists_order)];
+    $result = ui__api_patch("/projects", $data, false, false, true);
+    parse_request($result[0], $result[1]);
+    break;
 
   // USERS
   case 'ADD_USER':

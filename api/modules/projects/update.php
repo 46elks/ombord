@@ -21,7 +21,7 @@
     $params       = ['project_id' => $project_id];
 
     // Only allow these fields to be updated.
-    $allowed_fields = ['title', 'description', 'is_template', 'name'];
+    $allowed_fields = ['title', 'description', 'is_template', 'name', "lists_order"];
 
     foreach ($fields as $key => $value) :
       

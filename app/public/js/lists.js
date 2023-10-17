@@ -39,6 +39,25 @@ function getList(list_id, callback=null){
   });
 }
 
+// Save the new order of the lists within a project
+// listsOrder = comma separated string with list ids
+function updateSortedLists(listsOrder, projectId){
+  app.log("Update lists order in project");
+  app.log(listsOrder);
+
+  let data = {
+    _action: "update_lists_order",
+    lists_order: listsOrder,
+    project_id: projectId
+  }
+  
+  apiPost(data,function(data){
+    app.log("Lists order updated");
+    app.log(data);
+  });
+
+}
+
 // Render list to DOM
 function renderList(data, listTemplate, parentElement, callback = null){
   

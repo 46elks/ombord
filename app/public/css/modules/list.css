@@ -1,7 +1,30 @@
-.list__section{}
+.drag-activated .list__section{}
+.drag-activated .list__section{
+  margin: 0 auto !important;
+  height: 40px!important;
+}
+.drag-activated .list__section header{border: none;}
+.drag-activated .list__section .js-tasks-list,
+.drag-activated .list__section .js-form-add-task{display: none;}
+.drag-activated .list__section .list__description{display: none;}
+.drag-activated .list__section .list__nav{display: none;}
+
+.list__section.ui-sortable-helper{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+.sortable-placeholder{
+  background-color: var(--medium-grey);
+  height: 10px!important;
+}
+.list__section{
+  margin: 2rem auto;
+  background-color: #fff;
+/*  border: 1px solid #000;*/
+}
 .list__header{
   position: relative;
-  margin-top: 4rem;
 }
 .list__description{}
 

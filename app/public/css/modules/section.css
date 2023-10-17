@@ -1,7 +1,7 @@
 /* SECTION  */
 section > header{
-  margin-top: 4rem;
-  margin-bottom: 1rem;
+  /*margin-top: 4rem;
+  margin-bottom: 1rem;*/
   border-bottom: 1px solid var(--medium-grey);
   position: relative;
 }

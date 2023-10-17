@@ -18,7 +18,7 @@
 
       if(empty($project_id)):
         $sql =<<< SQL
-          SELECT p.id, p.title, p.name, p.description, p.is_template
+          SELECT p.id, p.title, p.name, p.description, p.is_template, p.lists_order
             FROM projects p
             WHERE p.is_deleted = 0 
 SQL;
@@ -26,7 +26,7 @@ SQL;
       
       else:
         $sql =<<< SQL
-        SELECT p.id, p.title, p.name, p.description, p.is_template
+        SELECT p.id, p.title, p.name, p.description, p.is_template, p.lists_order
           FROM projects p
           WHERE p.id = :project_id
             AND p.is_deleted = 0 

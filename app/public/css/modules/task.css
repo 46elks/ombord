@@ -5,6 +5,7 @@
 .task-list li{
   list-style: none;
   margin-bottom: 10px;
+  background-color: #fff;
 }
 
 .task__title:not(.task__section .task__title){
