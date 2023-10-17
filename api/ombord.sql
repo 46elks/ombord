@@ -1,7 +1,7 @@
 # ************************************************************
 # Host: localhost (MySQL 5.7.32)
 # Database: ombord
-# Generation Time: 2022-09-20 15:45:26 +0000
+# Generation Time: 2023-10-10 10:30:00 +0000
 # ************************************************************
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -72,6 +72,7 @@ CREATE TABLE `projects` (
   `name` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
   `title` varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
   `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
+  `tasks_order` text,
   `is_template` tinyint(1) DEFAULT '0',
   `is_deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
