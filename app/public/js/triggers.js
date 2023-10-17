@@ -139,6 +139,9 @@ document.addEventListener("click",function(e){
   } else if (e.target.classList.contains('js-add-project')){
     app.log("Trigger: Add project");
     e.preventDefault();
+
+    e.target.classList.add("hidden"); // Hidde submit button
+    e.target.nextElementSibling.classList.remove("hidden"); // Show loader
     
     submitForm(e.target.form,function(data){
       // Redirect to the projects page

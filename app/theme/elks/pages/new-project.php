@@ -46,8 +46,7 @@
         <br>
         <br>
         <input type="submit" class="btn js-add-project" value="Skapa projekt">
-        <br>
-        
+        <p class="hidden"><span class="icon-spinner loading"></span> Projektet skapas</p>
       </form>
 
     </section>

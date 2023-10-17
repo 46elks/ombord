@@ -58,3 +58,13 @@ h1{
 #footer{
   margin-top: 4rem;
 }
+
+.loading {
+  animation: spin 2s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
