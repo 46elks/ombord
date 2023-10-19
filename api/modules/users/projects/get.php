@@ -26,7 +26,7 @@
       
       // Select all projects that belongs to the user
       $sql =<<< SQL
-      SELECT p.id, p.title, p.name, p.description, p.is_template
+      SELECT p.id, p.title, p.name, p.description, p.is_template, p.lists_order
         FROM projects p
         JOIN user_projects AS up 
           ON up.project_id = p.id
